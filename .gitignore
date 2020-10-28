@@ -5,6 +5,7 @@ project0/*
 project1/*
 project2/*
 ignore_project2/*
+project3/src/project3.iml
 project3/project3.iml
 project3/.idea/*
 project3/out/*
