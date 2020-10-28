@@ -2,5 +2,5 @@ project0
 project1
 project2
 ignore_project2
-.idea
-out
+project3/.idea
+project3/out
