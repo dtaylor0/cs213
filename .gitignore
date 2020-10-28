@@ -1,6 +1,6 @@
-project0
-project1
-project2
-ignore_project2
-project3/.idea
-project3/out
+project0/*
+project1/*
+project2/*
+ignore_project2/*
+project3/.idea/*
+project3/out/*
