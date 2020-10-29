@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="OPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <ChoiceBox prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:id="checking" fx:value="Checking" />
+               <String fx:id="savings" fx:value="Savings" />
+               <String fx:id="moneyMarket" fx:value="Money Market" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField maxWidth="-Infinity" />
+      <Text fill="WHITE" layoutX="20.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField layoutX="20.0" layoutY="83.0" maxWidth="-Infinity" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
