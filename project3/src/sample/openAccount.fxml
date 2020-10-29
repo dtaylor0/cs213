@@ -9,10 +9,21 @@
 
 <VBox fx:id="OPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Account" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Text>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type">
          <font>
             <Font size="14.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
       </Text>
       <ChoiceBox prefWidth="150.0">
          <items>
@@ -22,19 +33,34 @@
                <String fx:id="moneyMarket" fx:value="Money Market" />
             </FXCollections>
          </items>
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
       </ChoiceBox>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
          <font>
             <Font size="14.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
       </Text>
-      <TextField maxWidth="-Infinity" />
+      <TextField maxWidth="-Infinity">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin></TextField>
       <Text fill="WHITE" layoutX="20.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
          <font>
             <Font size="14.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
       </Text>
-      <TextField layoutX="20.0" layoutY="83.0" maxWidth="-Infinity" />
+      <TextField layoutX="20.0" layoutY="83.0" maxWidth="-Infinity">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin></TextField>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

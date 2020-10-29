@@ -13,13 +13,14 @@ public class Controller {
     @FXML
     private BorderPane bp;
 
+    private VBox openPage;
 
+
+    //shows open account menu when Open Account button is pressed
     @FXML
     public void openAccountPage(ActionEvent event) throws IOException {
-        System.out.println("hi");
-        VBox openPage = FXMLLoader.load(getClass().getResource("openAccount.fxml"));
+        //load center pane from openAccount.fxml
+        openPage = FXMLLoader.load(getClass().getResource("openAccount.fxml"));
         bp.setCenter(openPage);
-
-
     }
 }
