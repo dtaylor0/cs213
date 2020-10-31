@@ -6,6 +6,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -18,43 +19,61 @@ public class OpenController {
     private ToggleGroup accountType;
 
     @FXML
+    private TextField fname;
+
+    @FXML
+    private TextField lname;
+
+    @FXML
+    private TextField bal;
+
+    @FXML
+    private TextField date;
+
+    @FXML
+    private TextField bool;
+
+    @FXML
+    private Text boolLabel;
+
+    @FXML
     public void createAccount(ActionEvent event) throws IOException {
         //take data from open account form and add new account to database
-        //System.out.println(bp.getCenter().get);
 
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
-        System.out.println(button.getText());
+        String accType = button.getText();
+        if (accType.equals("Checking"))
+            boolLabel.setText("Direct Deposit (enter true/false)");
+        else if (accType.equals("Savings")) {
+            boolLabel.setText("Loyal Customer (enter true/false)");
+        }
+        else if (accType.equals("Money Market")) {
+            boolLabel.setText("Number of withdrawals");
+        }
+        System.out.println(accType);
 
         //fname
-        TextField fnameField = (TextField) OPage.getChildren().get(6);
-        String fname = fnameField.getText();
-        System.out.println(fname);
+        System.out.println(fname.getText());
 
         //lname
-        TextField lnameField = (TextField) OPage.getChildren().get(8);
-        String lname = lnameField.getText();
-        System.out.println(lname);
+        System.out.println(lname.getText());
 
         //bal
-        TextField balField = (TextField) OPage.getChildren().get(10);
-        Double bal = Double.parseDouble(balField.getText());
-        System.out.println(bal);
+        System.out.println(Double.parseDouble(bal.getText()));
 
         //date
-        TextField dateField = (TextField) OPage.getChildren().get(12);
-        String dateStr = dateField.getText();
+        String dateStr = date.getText();
         String[] dateArr = dateStr.split("/");
         int month = Integer.parseInt(dateArr[0]);
         int day = Integer.parseInt(dateArr[1]);
         int year = Integer.parseInt(dateArr[2]);
-        Date date = new Date(month, day, year);
-        System.out.println(date.toString());
+        Date dateObj = new Date(month, day, year);
+        System.out.println(dateObj.toString());
 
         //boolean
-        TextField boolField = (TextField) OPage.getChildren().get(14);
-        String boolStr = boolField.getText();
-        boolean bool = Boolean.parseBoolean(boolStr);
-        System.out.println(bool);
+        String boolStr = bool.getText();
+        boolean boolVal = Boolean.parseBoolean(boolStr);
+        System.out.println(boolVal);
 
     }
 }

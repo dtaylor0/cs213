@@ -88,7 +88,7 @@
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin></TextField>
-      <Text fill="WHITE" layoutX="30.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T/F">
+      <Text fx:id="boolLabel" fill="WHITE" layoutX="30.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T/F">
          <font>
             <Font size="14.0" />
          </font>
