@@ -13,7 +13,7 @@ public class AccountDatabase
     /**
      Constructor that initializes and empty database of capacity 5
      */
-    public AccountDatabase() 
+    public AccountDatabase()
     {
         int initCapacity = 5;
         this.size = 0;
@@ -118,8 +118,8 @@ public class AccountDatabase
         accounts[index].debit(amount);
         if (accounts[index] instanceof MoneyMarket)
             ((MoneyMarket) accounts[index]).incrementWithdrawals();
-        return 0; 
-    } 
+        return 0;
+    }
     /**
      Sort database based off of the opening date (ascending order)
      */
@@ -169,71 +169,62 @@ public class AccountDatabase
             return splitNum[0].replaceAll(regex, "$1,") + "." + splitNum[1];
         else
             return num.replaceAll(regex, "$1,");
-    }  
+    }
     /**
      Print each account in the database's interest, fee, and the new balance after calculations
      */
-    private void printFeesAndInterest() 
+    private String printFeesAndInterest()
     {
-        for (int i = 0; i < size; i++) 
+        String res = "";
+        for (int i = 0; i < size; i++)
         {
-        	Account currAccount = accounts[i];
-            System.out.println(currAccount.toString());
+            Account currAccount = accounts[i];
+            String Account = currAccount.toString() + "\n";
             double interest = currAccount.monthlyInterest();
             double fee = currAccount.monthlyFee();
             currAccount.credit(interest);
             currAccount.debit(fee);
             double updatedBalance = currAccount.getBalance();
-            System.out.println(String.format("-interest: $ %.2f", interest));
-            System.out.println(String.format("-fee: $ %.2f", fee));
-            System.out.println("-new balance: $ " + regexCommafy(String.format("%.2f", updatedBalance)));
-            System.out.println();
+            String inter = String.format("-interest: $ %.2f", interest) + "\n";
+            String fees = String.format("-fee: $ %.2f", fee) + "\n";
+            String balance = "-new balance: $ " + regexCommafy(String.format("%.2f", updatedBalance)) + "\n";
+            res += Account + inter + fees + balance + "\n";
         }
+        return res;
     }
     /**
      Print each account in the database by the opening date
      */
-    public void printByDateOpen()
+    public String printByDateOpen()
     {
-        if (size <= 0) 
-        {
-            System.out.println("Database is empty.");
-            return;
-        }
+        if (size <= 0)
+            return "Database is empty.";
         sortByDateOpen();
-        System.out.println("\n--Printing statements by date open--\n");
-        printFeesAndInterest();
-        System.out.println("--end of printing--\n");
+        return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
     }
     /**
      Print each account in the database by the last name of the account's Profile
      */
-    public void printByLastName()
+    public String printByLastName()
     {
-        if (size <= 0) 
-        {
-            System.out.println("Database is empty.");
-            return;
-        }
+        if (size <= 0)
+            return "Database is empty.";
         sortByLastName();
-        System.out.println("\n--Printing statements by last name--\n");
-        printFeesAndInterest();
-        System.out.println("--end of printing--\n");
+        return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
     }
     /**
      Print each account in the database with all their fields
      */
-    public void printAccounts()
+    public String printAccounts()
     {
-        if (size <= 0) {
-            System.out.println("Database is empty.");
-            return;
-        }
-        System.out.println("--Listing accounts in the database--");
+        if (size <= 0)
+            return "Database is empty.";
+        String res = "--Listing accounts in the database--" + "\n";
         for (int i = 0; i < size; i++) {
-            System.out.println(accounts[i].toString());
+            res += accounts[i].toString() + "\n";
         }
-        System.out.println("--end of listing--");
+        res += "--end of listing--" + "\n";
+        return res;
     }
     /**
      Testbed main to test the database works properly
@@ -253,11 +244,14 @@ public class AccountDatabase
         db.add(acc5);
         Checking acc6 = new Checking(new Profile("Brian", "Johnson"), 25000.39, new Date(3, 27, 2013), true);
         db.add(acc6);
-        db.printByDateOpen();
-        db.printByLastName();
-        db.remove(acc2);
-        db.deposit(acc5, 10000);
-        db.withdrawal(acc6, 25000.30);
-        db.printByDateOpen();
+        //System.out.println(db.printByDateOpen());
+        //db.printByLastName();
+        //db.remove(acc2);
+        // db.deposit(acc5, 10000);
+        // db.withdrawal(acc6, 25000.30);
+        // db.printByDateOpen();
+        //db.printFeesAndInterest();
+        //System.out.println(db.printFeesAndInterest());
+        System.out.println(db.printAccounts());
     }
 }
