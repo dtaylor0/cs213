@@ -4,12 +4,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -96,5 +100,27 @@ public class OpenController {
             boolVal = Boolean.parseBoolean(boolStr);
             System.out.println(boolVal);
         }
+    }
+
+    private Parent loadFXML(String name) {
+        try {
+            return FXMLLoader.load(getClass().getResource(name));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) {
+        changeScene("home.fxml");
+    }
+
+    private void changeScene(String fxml_file) {
+        Stage stage = (Stage) OPage.getScene().getWindow();
+        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        stage.setScene(scene);
     }
 }
