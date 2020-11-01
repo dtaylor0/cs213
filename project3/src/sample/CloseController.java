@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
@@ -17,7 +16,7 @@ import java.io.IOException;
 public class CloseController {
 
     @FXML
-    private VBox OPage;
+    private VBox CPage;
 
     @FXML
     private Button home;
@@ -48,7 +47,7 @@ public class CloseController {
     }
 
     private void changeScene(String fxml_file) {
-        Stage stage = (Stage) OPage.getScene().getWindow();
+        Stage stage = (Stage) CPage.getScene().getWindow();
         Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
         stage.setScene(scene);
     }

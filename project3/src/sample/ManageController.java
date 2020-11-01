@@ -56,7 +56,8 @@ public class ManageController {
 
     private void changeScene(String fxml_file) {
         Stage stage = (Stage) bp.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene;
+        scene = new Scene(loadFXML(fxml_file), 900, 600);
         stage.setScene(scene);
     }
 

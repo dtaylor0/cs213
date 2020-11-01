@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="OPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CloseController">
+<VBox fx:id="CPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CloseController">
     <children>
-      <Button fx:id="home" mnemonicParsing="false" text="Home">
+      <Button fx:id="home" mnemonicParsing="false" onAction="#goHome" text="Home">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
@@ -69,7 +69,7 @@
             <VBox.margin>
                 <Insets bottom="10.0" left="10.0" />
             </VBox.margin></TextField>
-        <Button mnemonicParsing="false" onAction="#createAccount" text="Submit">
+        <Button mnemonicParsing="false" text="Submit">
             <VBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </VBox.margin>
