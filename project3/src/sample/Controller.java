@@ -3,11 +3,12 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,6 +19,15 @@ public class Controller {
 
     @FXML
     private VBox child;
+
+    @FXML
+    private Button btn_open;
+
+    @FXML
+    private Button btn_close;
+
+    @FXML
+    private Button btn_show;
 
     //shows open account menu when Open Account button is pressed
 //    @FXML
@@ -41,17 +51,22 @@ public class Controller {
 
     @FXML
     private void handleLoadFXML(ActionEvent event) {
-        Node n = (Node) event.getSource();
-        String id = n.getId();
-        if (id.equals("btn_open")) {
-            child.getChildren().set(0, loadFXML("openAccount.fxml"));
+        Object eventSrc = event.getSource();
+        if (eventSrc.equals(btn_open)) {
+            changeScene("openAccount.fxml");
         }
-        else if (id.equals("btn_close")) {
-            child.getChildren().set(0, loadFXML("closeAccount.fxml"));
+        else if (eventSrc.equals(btn_close)) {
+            changeScene("closeAccount.fxml");
         }
-        else if (id.equals("btn_show")) {
-            child.getChildren().set(0, loadFXML("showAccounts.fxml"));
+        else if (eventSrc.equals(btn_show)) {
+            changeScene("showAccounts.fxml");
         }
+    }
+
+    private void changeScene(String fxml_file) {
+        Stage stage = (Stage) bp.getScene().getWindow();
+        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        stage.setScene(scene);
     }
 
 }
