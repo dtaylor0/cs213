@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public class ManageController {
 
     @FXML
     private BorderPane bp;
@@ -21,16 +21,13 @@ public class Controller {
     private VBox child;
 
     @FXML
-    private Button mge_accts;
+    private Button btn_open;
 
     @FXML
-    private Button transactions;
+    private Button btn_close;
 
     @FXML
-    private Button btn_show;
-
-    @FXML
-    private Button import_db;
+    private Button home;
 
     private Parent loadFXML(String name) {
         try {
@@ -46,17 +43,14 @@ public class Controller {
     @FXML
     private void handleLoadFXML(ActionEvent event) {
         Object eventSrc = event.getSource();
-        if (eventSrc.equals(mge_accts)) {
-            changeScene("manageAccounts.fxml");
+        if (eventSrc.equals(btn_open)) {
+            changeScene("openAccount.fxml");
         }
-        else if (eventSrc.equals(transactions)) {
-            changeScene("accountTransactions.fxml");
+        else if (eventSrc.equals(btn_close)) {
+            changeScene("closeAccount.fxml");
         }
-        else if (eventSrc.equals(btn_show)) {
-            changeScene("showAccounts.fxml");
-        }
-        else if (eventSrc.equals(import_db)) {
-            changeScene("importDB.fxml");
+        else if (eventSrc.equals(home)) {
+            changeScene("home.fxml");
         }
     }
 
