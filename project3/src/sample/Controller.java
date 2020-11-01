@@ -8,9 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class Controller {
 
@@ -44,7 +46,7 @@ public class Controller {
     }
 
     @FXML
-    private void handleLoadFXML(ActionEvent event) {
+    private void handleLoadFXML(ActionEvent event) throws IOException {
         Object eventSrc = event.getSource();
         if (eventSrc.equals(mge_accts)) {
             changeScene("manageAccounts.fxml");
@@ -56,7 +58,28 @@ public class Controller {
             changeScene("showAccounts.fxml");
         }
         else if (eventSrc.equals(import_db)) {
-            changeScene("importDB.fxml");
+            String res = "";
+            FileChooser fileChooser = new FileChooser();
+            try
+            {
+                Stage stage = (Stage) bp.getScene().getWindow();
+                File file2 = fileChooser.showOpenDialog(stage);// needs to be try-catch for null pointer exception
+                Scanner sc = new Scanner(file2);
+                while(sc.hasNextLine())
+                    res += sc.nextLine() + "\n";
+                sc.close();
+            }
+            catch(NullPointerException | FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            File file = new File("./src/sample/txt", "database.txt");
+            if (!file.exists( ))
+                file.createNewFile();
+            FileWriter writer = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(writer);
+            bw.write(res);
+            bw.close();
         }
     }
 
