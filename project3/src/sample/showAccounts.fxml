@@ -25,7 +25,7 @@
         </Text>
         <RadioButton fx:id="checkingBtn" mnemonicParsing="false" text="Unsorted" textFill="WHITE">
             <VBox.margin>
-                <Insets left="10.0" />
+                <Insets left="10.0" top="10.0" />
             </VBox.margin>
          <toggleGroup>
             <ToggleGroup fx:id="printOptions" />
@@ -37,7 +37,7 @@
         </RadioButton>
         <RadioButton fx:id="MMBtn" mnemonicParsing="false" text="Sorted by Last Name" textFill="WHITE" toggleGroup="$printOptions">
             <VBox.margin>
-                <Insets left="10.0" top="10.0" />
+                <Insets bottom="10.0" left="10.0" top="10.0" />
             </VBox.margin>
         </RadioButton>
       <Button mnemonicParsing="false" text="Print">
