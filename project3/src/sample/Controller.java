@@ -41,22 +41,16 @@ public class Controller {
 
     @FXML
     private void handleLoadFXML(ActionEvent event) {
-        //child.getChildren().addAll(
-                //loadFXML("openAccount.fxml")//,
-                //loadFXML("closeAccount.fxml"),
-                //loadFXML("showAccounts.fxml")
-        //);
         Node n = (Node) event.getSource();
         String id = n.getId();
         if (id.equals("btn_open")) {
-            //show index 1 of vbox
             child.getChildren().set(0, loadFXML("openAccount.fxml"));
         }
         else if (id.equals("btn_close")) {
-            //show index 2 of vbox
+            child.getChildren().set(0, loadFXML("closeAccount.fxml"));
         }
         else if (id.equals("btn_show")) {
-            //show index 3 of vbox
+            child.getChildren().set(0, loadFXML("showAccounts.fxml"));
         }
     }
 

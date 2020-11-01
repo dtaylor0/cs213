@@ -1,9 +1,12 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,19 +40,30 @@ public class OpenController {
     private Text boolLabel;
 
     @FXML
+    public void initialize() {
+        accountType.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                RadioButton radioButton = (RadioButton) accountType.getSelectedToggle();
+                String accType = radioButton.getText();
+                if (accType.equals("Checking"))
+                    boolLabel.setText("Direct Deposit (enter true/false)");
+                else if (accType.equals("Savings")) {
+                    boolLabel.setText("Loyal Customer (enter true/false)");
+                }
+                else if (accType.equals("Money Market")) {
+                    boolLabel.setText("Number of withdrawals");
+                }
+            }
+        });
+    }
+
+    @FXML
     public void createAccount(ActionEvent event) throws IOException {
         //take data from open account form and add new account to database
 
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
         String accType = button.getText();
-        if (accType.equals("Checking"))
-            boolLabel.setText("Direct Deposit (enter true/false)");
-        else if (accType.equals("Savings")) {
-            boolLabel.setText("Loyal Customer (enter true/false)");
-        }
-        else if (accType.equals("Money Market")) {
-            boolLabel.setText("Number of withdrawals");
-        }
         System.out.println(accType);
 
         //fname
@@ -72,8 +86,15 @@ public class OpenController {
 
         //boolean
         String boolStr = bool.getText();
-        boolean boolVal = Boolean.parseBoolean(boolStr);
-        System.out.println(boolVal);
-
+        int withdrawals = 0;
+        boolean boolVal = false;
+        if (accType.equals("Money Market")) {
+            withdrawals = Integer.parseInt(boolStr);
+            System.out.println(withdrawals);
+        }
+        else {
+            boolVal = Boolean.parseBoolean(boolStr);
+            System.out.println(boolVal);
+        }
     }
 }
