@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DepositController {
@@ -39,7 +39,7 @@ public class DepositController {
     private TextArea output;
 
     @FXML
-    public void deposit(ActionEvent event) throws IOException {
+    public void deposit() throws IOException {
         //take data from open account form and add new account to database
 
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
@@ -52,7 +52,7 @@ public class DepositController {
         String lastName = lname.getText();
 
         //withdrawal amount
-        Double depositAmt = Double.parseDouble(amount.getText());
+        double depositAmt = Double.parseDouble(amount.getText());
 
         Profile holder = new Profile(firstName, lastName);
         Date dummyDate = new Date(1, 1, 2001);
@@ -60,17 +60,19 @@ public class DepositController {
         AccountDatabase db = loadDB();
 
         boolean depositRes = false;
-        if (accType.equals("Savings")) {
-            Savings acct = new Savings(holder, 0, dummyDate, false);
-            depositRes = db.deposit(acct, depositAmt);
-        }
-        else if (accType.equals("Checking")) {
-            Checking acct = new Checking(holder, 0, dummyDate, false);
-            depositRes = db.deposit(acct, depositAmt);
-        }
-        else if (accType.equals("Money Market")) {
-            MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            depositRes = db.deposit(acct, depositAmt);
+        switch (accType) {
+            case "Savings" -> {
+                Savings acct = new Savings(holder, 0, dummyDate, false);
+                depositRes = db.deposit(acct, depositAmt);
+            }
+            case "Checking" -> {
+                Checking acct = new Checking(holder, 0, dummyDate, false);
+                depositRes = db.deposit(acct, depositAmt);
+            }
+            case "Money Market" -> {
+                MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
+                depositRes = db.deposit(acct, depositAmt);
+            }
         }
 
         if(depositRes) {
@@ -95,7 +97,7 @@ public class DepositController {
             String accType = values[0];
             String fname = values[1];
             String lname = values[2];
-            Double balance = Double.parseDouble(values[3]);
+            double balance = Double.parseDouble(values[3]);
             String date = values[4];
             String[] dateArr = date.split("/");
             int month = Integer.parseInt(dateArr[0]);
@@ -103,20 +105,22 @@ public class DepositController {
             int year = Integer.parseInt(dateArr[2]);
             int withdrawals;
             boolean bool;
-            if (accType.equals("M")) {
-                withdrawals = Integer.parseInt(values[5]);
-                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                db.add(acct);
-            }
-            else if(accType.equals("S")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
-            }
-            else if(accType.equals("C")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
+            switch (accType) {
+                case "M" -> {
+                    withdrawals = Integer.parseInt(values[5]);
+                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                    db.add(acct);
+                }
+                case "S" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
+                case "C" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
             }
         }
         sc.close();
@@ -130,9 +134,9 @@ public class DepositController {
         writer.close();
     }
 
-    private Parent loadFXML(String name) {
+    private Parent loadHome() {
         try {
-            return FXMLLoader.load(getClass().getResource(name));
+            return FXMLLoader.load(getClass().getResource("home.fxml"));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -142,13 +146,9 @@ public class DepositController {
     }
 
     @FXML
-    private void goHome(ActionEvent event) {
-        changeScene("home.fxml");
-    }
-
-    private void changeScene(String fxml_file) {
+    private void goHome() {
         Stage stage = (Stage) DPage.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene = new Scene(Objects.requireNonNull(loadHome()), 900, 600);
         stage.setScene(scene);
     }
 }

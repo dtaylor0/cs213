@@ -7,18 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ManageController {
 
     @FXML
     private BorderPane bp;
-
-    @FXML
-    private VBox child;
 
     @FXML
     private Button btn_open;
@@ -57,7 +54,7 @@ public class ManageController {
     private void changeScene(String fxml_file) {
         Stage stage = (Stage) bp.getScene().getWindow();
         Scene scene;
-        scene = new Scene(loadFXML(fxml_file), 900, 600);
+        scene = new Scene(Objects.requireNonNull(loadFXML(fxml_file)), 900, 600);
         stage.setScene(scene);
     }
 

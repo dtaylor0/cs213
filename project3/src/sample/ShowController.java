@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ShowController {
@@ -71,9 +72,9 @@ public class ShowController {
         }
     }
 
-    private Parent loadFXML(String name) {
+    private Parent loadHome() {
         try {
-            return FXMLLoader.load(getClass().getResource(name));
+            return FXMLLoader.load(getClass().getResource("home.fxml"));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -83,13 +84,9 @@ public class ShowController {
     }
 
     @FXML
-    private void goHome(ActionEvent event) {
-        changeScene("home.fxml");
-    }
-
-    private void changeScene(String fxml_file) {
+    private void goHome() {
         Stage stage = (Stage) SPage.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene = new Scene(Objects.requireNonNull(loadHome()), 900, 600);
         stage.setScene(scene);
     }
 
@@ -104,7 +101,7 @@ public class ShowController {
             String accType = values[0];
             String fname = values[1];
             String lname = values[2];
-            Double balance = Double.parseDouble(values[3]);
+            double balance = Double.parseDouble(values[3]);
             String date = values[4];
             String[] dateArr = date.split("/");
             int month = Integer.parseInt(dateArr[0]);
@@ -112,20 +109,22 @@ public class ShowController {
             int year = Integer.parseInt(dateArr[2]);
             int withdrawals;
             boolean bool;
-            if (accType.equals("M")) {
-                withdrawals = Integer.parseInt(values[5]);
-                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                db.add(acct);
-            }
-            else if(accType.equals("S")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
-            }
-            else if(accType.equals("C")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
+            switch (accType) {
+                case "M" -> {
+                    withdrawals = Integer.parseInt(values[5]);
+                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                    db.add(acct);
+                }
+                case "S" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
+                case "C" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
             }
         }
         sc.close();

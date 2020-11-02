@@ -1,11 +1,13 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,15 +15,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class CloseController {
 
     @FXML
     private VBox CPage;
-
-    @FXML
-    private Button home;
 
     @FXML
     private ToggleGroup accountType;
@@ -36,7 +36,7 @@ public class CloseController {
     private TextArea output;
 
     @FXML
-    private void closeAccount(ActionEvent event) throws IOException {
+    private void closeAccount() throws IOException {
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
         String accType = button.getText();
         System.out.println(accType);
@@ -54,17 +54,19 @@ public class CloseController {
         AccountDatabase db = loadDB();
 
         boolean removeRes = false;
-        if (accType.equals("Savings")) {
-            Savings acct = new Savings(holder, 0, dummyDate, false);
-            removeRes = db.remove(acct);
-        }
-        else if (accType.equals("Checking")) {
-            Checking acct = new Checking(holder, 0, dummyDate, false);
-            removeRes = db.remove(acct);
-        }
-        else if (accType.equals("Money Market")) {
-            MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            removeRes = db.remove(acct);
+        switch (accType) {
+            case "Savings" -> {
+                Savings acct = new Savings(holder, 0, dummyDate, false);
+                removeRes = db.remove(acct);
+            }
+            case "Checking" -> {
+                Checking acct = new Checking(holder, 0, dummyDate, false);
+                removeRes = db.remove(acct);
+            }
+            case "Money Market" -> {
+                MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
+                removeRes = db.remove(acct);
+            }
         }
 
         if (removeRes) {
@@ -89,7 +91,7 @@ public class CloseController {
             String accType = values[0];
             String fname = values[1];
             String lname = values[2];
-            Double balance = Double.parseDouble(values[3]);
+            double balance = Double.parseDouble(values[3]);
             String date = values[4];
             String[] dateArr = date.split("/");
             int month = Integer.parseInt(dateArr[0]);
@@ -97,20 +99,22 @@ public class CloseController {
             int year = Integer.parseInt(dateArr[2]);
             int withdrawals;
             boolean bool;
-            if (accType.equals("M")) {
-                withdrawals = Integer.parseInt(values[5]);
-                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                db.add(acct);
-            }
-            else if(accType.equals("S")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
-            }
-            else if(accType.equals("C")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
+            switch (accType) {
+                case "M" -> {
+                    withdrawals = Integer.parseInt(values[5]);
+                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                    db.add(acct);
+                }
+                case "S" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
+                case "C" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
             }
         }
         sc.close();
@@ -125,9 +129,9 @@ public class CloseController {
     }
 
 
-    private Parent loadFXML(String name) {
+    private Parent loadHome() {
         try {
-            return FXMLLoader.load(getClass().getResource(name));
+            return FXMLLoader.load(getClass().getResource("home.fxml"));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -137,13 +141,9 @@ public class CloseController {
     }
 
     @FXML
-    private void goHome(ActionEvent event) {
-        changeScene("home.fxml");
-    }
-
-    private void changeScene(String fxml_file) {
+    private void goHome() {
         Stage stage = (Stage) CPage.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene = new Scene(Objects.requireNonNull(loadHome()), 900, 600);
         stage.setScene(scene);
     }
 }

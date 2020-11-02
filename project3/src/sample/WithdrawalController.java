@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class WithdrawalController {
@@ -39,7 +40,7 @@ public class WithdrawalController {
     private TextArea output;
 
     @FXML
-    public void withdrawal(ActionEvent event) throws IOException {
+    public void withdrawal() throws IOException {
         //take data from open account form and add new account to database
 
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
@@ -52,7 +53,7 @@ public class WithdrawalController {
         String lastName = lname.getText();
 
         //withdrawal amount
-        Double withdrawalAmt = Double.parseDouble(amount.getText());
+        double withdrawalAmt = Double.parseDouble(amount.getText());
 
         Profile holder = new Profile(firstName, lastName);
         Date dummyDate = new Date(1, 1, 2001);
@@ -60,28 +61,25 @@ public class WithdrawalController {
         AccountDatabase db = loadDB();
 
         int withdrawalRes = -2;
-        if (accType.equals("Savings")) {
-            Savings acct = new Savings(holder, 0, dummyDate, false);
-            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
-        }
-        else if (accType.equals("Checking")) {
-            Checking acct = new Checking(holder, 0, dummyDate, false);
-            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
-        }
-        else if (accType.equals("Money Market")) {
-            MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
+        switch (accType) {
+            case "Savings" -> {
+                Savings acct = new Savings(holder, 0, dummyDate, false);
+                withdrawalRes = db.withdrawal(acct, withdrawalAmt);
+            }
+            case "Checking" -> {
+                Checking acct = new Checking(holder, 0, dummyDate, false);
+                withdrawalRes = db.withdrawal(acct, withdrawalAmt);
+            }
+            case "Money Market" -> {
+                MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
+                withdrawalRes = db.withdrawal(acct, withdrawalAmt);
+            }
         }
 
         switch (withdrawalRes) {
-            case 0:
-                output.setText(String.format("%.2f withdrawn from account.", withdrawalAmt));
-                break;
-            case 1:
-                output.setText("Insufficient funds.");
-                break;
-            case -1:
-                output.setText("Account does not exist.");
+            case 0 -> output.setText(String.format("%.2f withdrawn from account.", withdrawalAmt));
+            case 1 -> output.setText("Insufficient funds.");
+            case -1 -> output.setText("Account does not exist.");
         }
 
         writeDB(db);
@@ -99,7 +97,7 @@ public class WithdrawalController {
             String accType = values[0];
             String fname = values[1];
             String lname = values[2];
-            Double balance = Double.parseDouble(values[3]);
+            double balance = Double.parseDouble(values[3]);
             String date = values[4];
             String[] dateArr = date.split("/");
             int month = Integer.parseInt(dateArr[0]);
@@ -107,20 +105,22 @@ public class WithdrawalController {
             int year = Integer.parseInt(dateArr[2]);
             int withdrawals;
             boolean bool;
-            if (accType.equals("M")) {
-                withdrawals = Integer.parseInt(values[5]);
-                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                db.add(acct);
-            }
-            else if(accType.equals("S")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
-            }
-            else if(accType.equals("C")) {
-                bool = Boolean.parseBoolean(values[5]);
-                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                db.add(acct);
+            switch (accType) {
+                case "M" -> {
+                    withdrawals = Integer.parseInt(values[5]);
+                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                    db.add(acct);
+                }
+                case "S" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
+                case "C" -> {
+                    bool = Boolean.parseBoolean(values[5]);
+                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                    db.add(acct);
+                }
             }
         }
         sc.close();
@@ -134,9 +134,9 @@ public class WithdrawalController {
         writer.close();
     }
 
-    private Parent loadFXML(String name) {
+    private Parent loadHome() {
         try {
-            return FXMLLoader.load(getClass().getResource(name));
+            return FXMLLoader.load(getClass().getResource("home.fxml"));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -145,14 +145,11 @@ public class WithdrawalController {
         return null;
     }
 
-    @FXML
-    private void goHome(ActionEvent event) {
-        changeScene("home.fxml");
-    }
 
-    private void changeScene(String fxml_file) {
+    @FXML
+    private void goHome() {
         Stage stage = (Stage) WPage.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene = new Scene(Objects.requireNonNull(loadHome()), 900, 600);
         stage.setScene(scene);
     }
 }

@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class IEController {
@@ -24,9 +25,6 @@ public class IEController {
 
     @FXML
     private Button exportBtn;
-
-    @FXML
-    private Button home;
 
     @FXML
     private TextArea output;
@@ -66,7 +64,7 @@ public class IEController {
                 e.printStackTrace();
             }
             File file = new File("./src/sample/txt", "database.txt");
-            if (!file.exists( ))
+            if (!file.exists())
                 file.createNewFile();
             FileWriter writer = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(writer);
@@ -78,13 +76,9 @@ public class IEController {
 
 
     @FXML
-    private void goHome(ActionEvent event) {
-        changeScene("home.fxml");
-    }
-
-    private void changeScene(String fxml_file) {
+    private void goHome() {
         Stage stage = (Stage) bp.getScene().getWindow();
-        Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
+        Scene scene = new Scene(Objects.requireNonNull(loadFXML("home.fxml")), 900, 600);
         stage.setScene(scene);
     }
 }
