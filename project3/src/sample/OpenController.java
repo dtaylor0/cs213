@@ -86,7 +86,6 @@ public class OpenController {
 
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
         String accType = button.getText();
-        System.out.println(accType);
 
         //fname
         String firstName = fname.getText();

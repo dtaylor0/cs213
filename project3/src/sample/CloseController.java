@@ -39,7 +39,6 @@ public class CloseController {
     private void closeAccount() throws IOException {
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
         String accType = button.getText();
-        System.out.println(accType);
 
         //fname
         String firstName = fname.getText();

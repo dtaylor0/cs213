@@ -134,7 +134,6 @@ public class ShowController {
             }
         }
         sc.close();
-        System.out.println(db.printAccounts());
         return db;
     }
 }
