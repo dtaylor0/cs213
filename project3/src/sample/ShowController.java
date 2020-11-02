@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -69,7 +70,15 @@ public class ShowController {
                 default:
                     break;
             }
+            writeDB(db);
         }
+    }
+
+    private void writeDB(AccountDatabase db) throws IOException {
+        FileWriter writer = new FileWriter(Path.path);
+        String dbStr = db.convertToTxt();
+        writer.write(dbStr);
+        writer.close();
     }
 
     private Parent loadHome() {
