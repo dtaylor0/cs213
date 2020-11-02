@@ -55,17 +55,23 @@ public class CloseController {
 
         boolean removeRes = false;
         switch (accType) {
-            case "Savings" -> {
+            case "Savings": {
                 Savings acct = new Savings(holder, 0, dummyDate, false);
                 removeRes = db.remove(acct);
+                break;
             }
-            case "Checking" -> {
+            case "Checking": {
                 Checking acct = new Checking(holder, 0, dummyDate, false);
                 removeRes = db.remove(acct);
+                break;
             }
-            case "Money Market" -> {
+            case "Money Market": {
                 MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
                 removeRes = db.remove(acct);
+                break;
+            }
+            default: {
+                break;
             }
         }
 
@@ -100,20 +106,26 @@ public class CloseController {
             int withdrawals;
             boolean bool;
             switch (accType) {
-                case "M" -> {
+                case "M": {
                     withdrawals = Integer.parseInt(values[5]);
                     MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
                     db.add(acct);
+                    break;
                 }
-                case "S" -> {
+                case "S": {
                     bool = Boolean.parseBoolean(values[5]);
                     Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
                     db.add(acct);
+                    break;
                 }
-                case "C" -> {
+                case "C": {
                     bool = Boolean.parseBoolean(values[5]);
                     Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
                     db.add(acct);
+                    break;
+                }
+                default: {
+                    break;
                 }
             }
         }

@@ -110,20 +110,26 @@ public class ShowController {
             int withdrawals;
             boolean bool;
             switch (accType) {
-                case "M" -> {
+                case "M": {
                     withdrawals = Integer.parseInt(values[5]);
                     MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
                     db.add(acct);
+                    break;
                 }
-                case "S" -> {
+                case "S": {
                     bool = Boolean.parseBoolean(values[5]);
                     Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
                     db.add(acct);
+                    break;
                 }
-                case "C" -> {
+                case "C": {
                     bool = Boolean.parseBoolean(values[5]);
                     Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
                     db.add(acct);
+                    break;
+                }
+                default: {
+                    break;
                 }
             }
         }
