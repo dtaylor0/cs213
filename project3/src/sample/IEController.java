@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
@@ -71,13 +70,21 @@ public class IEController {
             try
             {
                 Stage stage = (Stage) bp.getScene().getWindow();
-                File file2 = fileChooser.showOpenDialog(stage);// needs to be try-catch for null pointer exception
-                Scanner sc = new Scanner(file2);
-                while(sc.hasNextLine())
-                    res += sc.nextLine() + "\n";
-                sc.close();
+                try
+                {
+                    File file2 = fileChooser.showOpenDialog(stage);// needs to be try-catch for null pointer exception
+                    Scanner sc = new Scanner(file2);
+                    while(sc.hasNextLine())
+                        res += sc.nextLine() + "\n";
+                    sc.close();
+                }
+                catch(IOException | NullPointerException e)
+                {
+                    output.appendText("You didn't open a file.\n");
+                    return;
+                }
             }
-            catch(NullPointerException | FileNotFoundException e)
+            catch(NullPointerException e)
             {
                 e.printStackTrace();
             }

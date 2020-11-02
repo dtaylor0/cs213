@@ -51,9 +51,24 @@ public class DepositController {
         //lname
         String lastName = lname.getText();
 
-        //withdrawal amount
-        double depositAmt = Double.parseDouble(amount.getText());
+        if (firstName.equals("") || lastName.equals("")) {
+            output.appendText("Must enter a first and last name.\n");
+            return;
+        }
 
+        //deposit amount
+        double depositAmt = 0;
+        try {
+            depositAmt = Double.parseDouble(amount.getText());
+        }
+        catch (Exception e) {
+            output.appendText("Bad input for deposit amount.\n");
+            return;
+        }
+        if (depositAmt < 0) {
+            output.appendText("Cannot have negative deposit amount.\n");
+            return;
+        }
         Profile holder = new Profile(firstName, lastName);
         Date dummyDate = new Date(1, 1, 2001);
 

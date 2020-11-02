@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     @Override
@@ -13,6 +15,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
         primaryStage.setTitle("Transaction Manager");
         primaryStage.setScene(new Scene(root));
+        File file = new File(Path.path);
+        if (!file.exists( ))
+            file.createNewFile();
         primaryStage.show();
     }
 

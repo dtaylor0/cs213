@@ -150,6 +150,18 @@ public class OpenController {
                 break;
             }
             case "Money Market": {
+                int w = 0;
+                try {
+                    w = Integer.parseInt(numWithdrawals.getText());
+                }
+                catch (Exception e) {
+                    output.appendText("Bad input for withdrawals.\n");
+                    return;
+                }
+                if (w < 0) {
+                    output.appendText("Cannot have negative withdrawals.\n");
+                    return;
+                }
                 MoneyMarket acct = new MoneyMarket(holder, balance, dateObj, Integer.parseInt(numWithdrawals.getText()));
                 addRes = db.add(acct);
                 break;

@@ -46,6 +46,11 @@ public class CloseController {
         //lname
         String lastName = lname.getText();
 
+        if (firstName.equals("") || lastName.equals("")) {
+            output.appendText("Must enter a first and last name.\n");
+            return;
+        }
+
         Profile holder = new Profile(firstName, lastName);
 
         Date dummyDate = new Date(1, 1, 2001);

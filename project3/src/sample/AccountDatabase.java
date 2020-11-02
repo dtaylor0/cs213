@@ -198,7 +198,7 @@ public class AccountDatabase
     public String printByDateOpen()
     {
         if (size <= 0)
-            return "Database is empty.";
+            return "Database is empty.\n";
         sortByDateOpen();
         return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
     }
@@ -208,7 +208,7 @@ public class AccountDatabase
     public String printByLastName()
     {
         if (size <= 0)
-            return "Database is empty.";
+            return "Database is empty.\n";
         sortByLastName();
         return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
     }
@@ -218,7 +218,7 @@ public class AccountDatabase
     public String printAccounts()
     {
         if (size <= 0)
-            return "Database is empty.";
+            return "Database is empty.\n";
         String res = "--Listing accounts in the database--" + "\n";
         for (int i = 0; i < size; i++) {
             res += accounts[i].toString() + "\n";

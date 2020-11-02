@@ -51,8 +51,24 @@ public class WithdrawalController {
         //lname
         String lastName = lname.getText();
 
+        if (firstName.equals("") || lastName.equals("")) {
+            output.appendText("Must enter a first and last name.\n");
+            return;
+        }
+
         //withdrawal amount
-        double withdrawalAmt = Double.parseDouble(amount.getText());
+        double withdrawalAmt = 0;
+        try {
+            withdrawalAmt = Double.parseDouble(amount.getText());
+        }
+        catch (Exception e) {
+            output.appendText("Bad input for withdrawal amount.\n");
+            return;
+        }
+        if (withdrawalAmt < 0) {
+            output.appendText("Cannot have negative withdrawal amount.\n");
+            return;
+        }
 
         Profile holder = new Profile(firstName, lastName);
         Date dummyDate = new Date(1, 1, 2001);
