@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
@@ -35,6 +36,9 @@ public class WithdrawalController {
     private TextField amount;
 
     @FXML
+    private TextArea output;
+
+    @FXML
     public void withdrawal(ActionEvent event) throws IOException {
         //take data from open account form and add new account to database
 
@@ -55,18 +59,31 @@ public class WithdrawalController {
 
         AccountDatabase db = loadDB();
 
+        int withdrawalRes = -2;
         if (accType.equals("Savings")) {
             Savings acct = new Savings(holder, 0, dummyDate, false);
-            db.withdrawal(acct, withdrawalAmt);
+            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
         }
         else if (accType.equals("Checking")) {
             Checking acct = new Checking(holder, 0, dummyDate, false);
-            db.withdrawal(acct, withdrawalAmt);
+            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
         }
         else if (accType.equals("Money Market")) {
             MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            db.withdrawal(acct, withdrawalAmt);
+            withdrawalRes = db.withdrawal(acct, withdrawalAmt);
         }
+
+        switch (withdrawalRes) {
+            case 0:
+                output.setText(String.format("%.2f withdrawn from account.", withdrawalAmt));
+                break;
+            case 1:
+                output.setText("Insufficient funds.");
+                break;
+            case -1:
+                output.setText("Account does not exist.");
+        }
+
         writeDB(db);
 
     }

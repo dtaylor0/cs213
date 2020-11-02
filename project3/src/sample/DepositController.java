@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
@@ -35,6 +36,9 @@ public class DepositController {
     private TextField amount;
 
     @FXML
+    private TextArea output;
+
+    @FXML
     public void deposit(ActionEvent event) throws IOException {
         //take data from open account form and add new account to database
 
@@ -55,18 +59,27 @@ public class DepositController {
 
         AccountDatabase db = loadDB();
 
+        boolean depositRes = false;
         if (accType.equals("Savings")) {
             Savings acct = new Savings(holder, 0, dummyDate, false);
-            db.deposit(acct, depositAmt);
+            depositRes = db.deposit(acct, depositAmt);
         }
         else if (accType.equals("Checking")) {
             Checking acct = new Checking(holder, 0, dummyDate, false);
-            db.deposit(acct, depositAmt);
+            depositRes = db.deposit(acct, depositAmt);
         }
         else if (accType.equals("Money Market")) {
             MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            db.deposit(acct, depositAmt);
+            depositRes = db.deposit(acct, depositAmt);
         }
+
+        if(depositRes) {
+            output.setText(String.format("%.2f deposited into account.", depositAmt));
+        }
+        else {
+            output.setText("Account does not exist.");
+        }
+
         writeDB(db);
 
     }

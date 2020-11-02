@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,6 +43,9 @@ public class OpenController {
 
     @FXML
     private Text boolLabel;
+
+    @FXML
+    private TextArea output;
 
     @FXML
     public void initialize() {
@@ -108,17 +108,26 @@ public class OpenController {
 
         AccountDatabase db = loadDB();
 
+
+        boolean addRes = false;
         if (accType.equals("Savings")) {
             Savings acct = new Savings(holder, balance, dateObj, boolVal);
-            db.add(acct);
+            addRes = db.add(acct);
         }
         else if (accType.equals("Checking")) {
             Checking acct = new Checking(holder, balance, dateObj, boolVal);
-            db.add(acct);
+            addRes = db.add(acct);
         }
         else if (accType.equals("Money Market")) {
             MoneyMarket acct = new MoneyMarket(holder, balance, dateObj, withdrawals);
-            db.add(acct);
+            addRes = db.add(acct);
+        }
+
+        if (addRes) {
+            output.setText("Account opened and added to the database.");
+        }
+        else {
+            output.setText("Account is already in the database.");
         }
 
         writeDB(db);
