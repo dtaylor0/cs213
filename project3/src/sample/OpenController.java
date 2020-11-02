@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -74,13 +75,15 @@ public class OpenController {
         System.out.println(accType);
 
         //fname
-        System.out.println(fname.getText());
+        String firstName = fname.getText();
 
         //lname
-        System.out.println(lname.getText());
+        String lastName = lname.getText();
+
+        Profile holder = new Profile(firstName, lastName);
 
         //bal
-        System.out.println(Double.parseDouble(bal.getText()));
+        Double balance = Double.parseDouble(bal.getText());
 
         //date
         String dateStr = date.getText();
@@ -89,7 +92,6 @@ public class OpenController {
         int day = Integer.parseInt(dateArr[1]);
         int year = Integer.parseInt(dateArr[2]);
         Date dateObj = new Date(month, day, year);
-        System.out.println(dateObj.toString());
 
         //boolean
         String boolStr = bool.getText();
@@ -104,11 +106,25 @@ public class OpenController {
             System.out.println(boolVal);
         }
 
-        loadDB();
+        AccountDatabase db = loadDB();
 
+        if (accType.equals("Savings")) {
+            Savings acct = new Savings(holder, balance, dateObj, boolVal);
+            db.add(acct);
+        }
+        else if (accType.equals("Checking")) {
+            Checking acct = new Checking(holder, balance, dateObj, boolVal);
+            db.add(acct);
+        }
+        else if (accType.equals("Money Market")) {
+            MoneyMarket acct = new MoneyMarket(holder, balance, dateObj, withdrawals);
+            db.add(acct);
+        }
+
+        writeDB(db);
     }
 
-    private AccountDatabase loadDB() throws FileNotFoundException {
+    private static AccountDatabase loadDB() throws FileNotFoundException {
         AccountDatabase db = new AccountDatabase();
         File f = new File("./src/sample/txt/database.txt");
         Scanner sc = new Scanner(f);
@@ -125,8 +141,8 @@ public class OpenController {
             int month = Integer.parseInt(dateArr[0]);
             int day = Integer.parseInt(dateArr[1]);
             int year = Integer.parseInt(dateArr[2]);
-            int withdrawals = 0;
-            boolean bool = false;
+            int withdrawals;
+            boolean bool;
             if (accType.equals("M")) {
                 withdrawals = Integer.parseInt(values[5]);
                 MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
@@ -145,6 +161,13 @@ public class OpenController {
         }
         System.out.println(db.printAccounts());
         return db;
+    }
+
+    private static void writeDB(AccountDatabase db) throws IOException {
+        FileWriter writer = new FileWriter("./src/sample/txt/database.txt");
+        String dbStr = db.convertToTxt();
+        writer.write(dbStr);
+        writer.close();
     }
 
     private Parent loadFXML(String name) {
@@ -167,5 +190,11 @@ public class OpenController {
         Stage stage = (Stage) OPage.getScene().getWindow();
         Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
         stage.setScene(scene);
+    }
+
+    public static void main(String[] args) throws IOException {
+        AccountDatabase myDB = loadDB();
+        myDB.printByLastName();
+        writeDB(myDB);
     }
 }

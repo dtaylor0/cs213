@@ -226,6 +226,41 @@ public class AccountDatabase
         res += "--end of listing--" + "\n";
         return res;
     }
+
+    /**
+     *Convert a database to a comma separated String, for writing to a txt file
+     * @return String with contents of database written as comma separated values
+     */
+    public String convertToTxt()
+    {
+        String res = "";
+        for (int i = 0; i < size; i++) {
+            Account acct = accounts[i];
+            if (acct instanceof Savings)
+                res += "S,";
+            else if (acct instanceof Checking)
+                res += "C,";
+            else if (acct instanceof MoneyMarket)
+                res += "M,";
+            Profile holder = acct.getHolder();
+            res += holder.getFName() + ",";
+            res += holder.getLName() + ",";
+            res += String.format("%.2f", acct.getBalance()) + ",";
+            res += acct.getDateOpen().toString() + ",";
+            if (acct instanceof MoneyMarket) {
+                res += String.valueOf(((MoneyMarket) acct).getWithdrawals());
+            }
+            else if (acct instanceof Savings) {
+                res += String.valueOf(((Savings) acct).getIsLoyal());
+            }
+            else if (acct instanceof Checking) {
+                res += String.valueOf(((Checking) acct).getDirectDeposit());
+            }
+            res += "\n";
+        }
+        return res;
+    }
+
     /**
      Testbed main to test the database works properly
      @param args arguments to pass to run the class
