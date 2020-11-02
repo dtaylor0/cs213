@@ -7,32 +7,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class Controller {
+public class IEController {
 
     @FXML
     private BorderPane bp;
 
     @FXML
-    private VBox child;
+    private Button importBtn;
 
     @FXML
-    private Button mge_accts;
+    private Button exportBtn;
 
     @FXML
-    private Button transactions;
+    private Button home;
 
-    @FXML
-    private Button btn_show;
-
-    @FXML
-    private Button import_export;
 
     private Parent loadFXML(String name) {
         try {
@@ -48,18 +42,11 @@ public class Controller {
     @FXML
     private void handleLoadFXML(ActionEvent event) throws IOException {
         Object eventSrc = event.getSource();
-        if (eventSrc.equals(mge_accts)) {
-            changeScene("manageAccounts.fxml");
+        if (eventSrc.equals(exportBtn)) {
+            //some code
         }
-        else if (eventSrc.equals(transactions)) {
-            changeScene("accountTransactions.fxml");
-        }
-        else if (eventSrc.equals(btn_show)) {
-            changeScene("showAccounts.fxml");
-        }
-        else if (eventSrc.equals(import_export)) {
-            changeScene("importExport.fxml");
-            /*
+        else if (eventSrc.equals(importBtn)) {
+
             String res = "";
             FileChooser fileChooser = new FileChooser();
             try
@@ -82,9 +69,13 @@ public class Controller {
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(res);
             bw.close();
-
-             */
         }
+    }
+
+
+    @FXML
+    private void goHome(ActionEvent event) {
+        changeScene("home.fxml");
     }
 
     private void changeScene(String fxml_file) {
@@ -92,5 +83,4 @@ public class Controller {
         Scene scene = new Scene(loadFXML(fxml_file), 900, 600);
         stage.setScene(scene);
     }
-
 }

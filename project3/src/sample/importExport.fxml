@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.IEController">
+    <left>
+        <VBox prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #0D1824;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="importBtn" mnemonicParsing="false" onAction="#handleLoadFXML" prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Import" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
+                <Button fx:id="exportBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLoadFXML" prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Export" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
+            <Button fx:id="home" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#goHome" prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Home" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #14242B;" BorderPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="child" alignment="CENTER" prefHeight="600.0" prefWidth="750.0">
+                    <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Import/Export Database" textAlignment="CENTER">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </VBox>
+            </children></AnchorPane>
+    </center>
+</BorderPane>
