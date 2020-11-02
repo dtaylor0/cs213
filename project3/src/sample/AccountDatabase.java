@@ -13,7 +13,7 @@ public class AccountDatabase
     /**
      Constructor that initializes and empty database of capacity 5
      */
-    public AccountDatabase() 
+    public AccountDatabase()
     {
         int initCapacity = 5;
         this.size = 0;
@@ -118,8 +118,8 @@ public class AccountDatabase
         accounts[index].debit(amount);
         if (accounts[index] instanceof MoneyMarket)
             ((MoneyMarket) accounts[index]).incrementWithdrawals();
-        return 0; 
-    } 
+        return 0;
+    }
     /**
      Sort database based off of the opening date (ascending order)
      */
@@ -169,16 +169,16 @@ public class AccountDatabase
             return splitNum[0].replaceAll(regex, "$1,") + "." + splitNum[1];
         else
             return num.replaceAll(regex, "$1,");
-    }  
+    }
     /**
      Print each account in the database's interest, fee, and the new balance after calculations
      */
-    private String printFeesAndInterest() 
+    private String printFeesAndInterest()
     {
-    	String res = "";
-        for (int i = 0; i < size; i++) 
+        String res = "";
+        for (int i = 0; i < size; i++)
         {
-        	Account currAccount = accounts[i];
+            Account currAccount = accounts[i];
             String Account = currAccount.toString() + "\n";
             double interest = currAccount.monthlyInterest();
             double fee = currAccount.monthlyFee();
@@ -197,7 +197,7 @@ public class AccountDatabase
      */
     public String printByDateOpen()
     {
-        if (size <= 0) 
+        if (size <= 0)
             return "Database is empty.";
         sortByDateOpen();
         return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
@@ -207,7 +207,7 @@ public class AccountDatabase
      */
     public String printByLastName()
     {
-    	if (size <= 0) 
+        if (size <= 0)
             return "Database is empty.";
         sortByLastName();
         return "\n--Printing statements by date open--\n" + "\n" + printFeesAndInterest() + "--end of printing--\n";
@@ -217,7 +217,7 @@ public class AccountDatabase
      */
     public String printAccounts()
     {
-    	if (size <= 0) 
+        if (size <= 0)
             return "Database is empty.";
         String res = "--Listing accounts in the database--" + "\n";
         for (int i = 0; i < size; i++) {
@@ -226,6 +226,41 @@ public class AccountDatabase
         res += "--end of listing--" + "\n";
         return res;
     }
+
+    /**
+     *Convert a database to a comma separated String, for writing to a txt file
+     * @return String with contents of database written as comma separated values
+     */
+    public String convertToTxt()
+    {
+        String res = "";
+        for (int i = 0; i < size; i++) {
+            Account acct = accounts[i];
+            if (acct instanceof Savings)
+                res += "S,";
+            else if (acct instanceof Checking)
+                res += "C,";
+            else if (acct instanceof MoneyMarket)
+                res += "M,";
+            Profile holder = acct.getHolder();
+            res += holder.getFName() + ",";
+            res += holder.getLName() + ",";
+            res += String.format("%.2f", acct.getBalance()) + ",";
+            res += acct.getDateOpen().toString() + ",";
+            if (acct instanceof MoneyMarket) {
+                res += String.valueOf(((MoneyMarket) acct).getWithdrawals());
+            }
+            else if (acct instanceof Savings) {
+                res += String.valueOf(((Savings) acct).getIsLoyal());
+            }
+            else if (acct instanceof Checking) {
+                res += String.valueOf(((Checking) acct).getDirectDeposit());
+            }
+            res += "\n";
+        }
+        return res;
+    }
+
     /**
      Testbed main to test the database works properly
      @param args arguments to pass to run the class
@@ -247,11 +282,11 @@ public class AccountDatabase
         //System.out.println(db.printByDateOpen());
         //db.printByLastName();
         //db.remove(acc2);
-       // db.deposit(acc5, 10000);
-       // db.withdrawal(acc6, 25000.30);
-       // db.printByDateOpen();
-         //db.printFeesAndInterest();
-          //System.out.println(db.printFeesAndInterest());
+        // db.deposit(acc5, 10000);
+        // db.withdrawal(acc6, 25000.30);
+        // db.printByDateOpen();
+        //db.printFeesAndInterest();
+        //System.out.println(db.printFeesAndInterest());
         System.out.println(db.printAccounts());
     }
 }

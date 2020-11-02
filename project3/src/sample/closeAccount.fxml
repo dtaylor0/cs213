@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="CPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CloseController">
+    <children>
+      <Button fx:id="home" mnemonicParsing="false" onAction="#goHome" text="Home">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Close Account" underline="true">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </Text>
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </Text>
+        <RadioButton fx:id="checkingBtn" mnemonicParsing="false" text="Checking" textFill="WHITE">
+            <VBox.margin>
+                <Insets left="10.0" />
+            </VBox.margin>
+            <toggleGroup>
+                <ToggleGroup fx:id="accountType" />
+            </toggleGroup></RadioButton>
+        <RadioButton fx:id="savingsBtn" mnemonicParsing="false" text="Savings" textFill="WHITE" toggleGroup="$accountType">
+            <VBox.margin>
+                <Insets left="10.0" top="10.0" />
+            </VBox.margin>
+        </RadioButton>
+        <RadioButton fx:id="MMBtn" mnemonicParsing="false" text="Money Market" textFill="WHITE" toggleGroup="$accountType">
+            <VBox.margin>
+                <Insets left="10.0" top="10.0" />
+            </VBox.margin>
+        </RadioButton>
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </Text>
+        <TextField fx:id="fname" maxWidth="-Infinity">
+            <VBox.margin>
+                <Insets left="10.0" />
+            </VBox.margin></TextField>
+        <Text fill="WHITE" layoutX="20.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </Text>
+        <TextField fx:id="lname" layoutX="20.0" layoutY="83.0" maxWidth="-Infinity">
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" />
+            </VBox.margin></TextField>
+        <Button mnemonicParsing="false" onAction="#closeAccount" text="Submit">
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </Button>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</VBox>

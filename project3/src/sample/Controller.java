@@ -8,13 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import javafx.stage.Stage;
+
+import java.io.*;
 import java.util.Scanner;
 
 public class Controller {
@@ -33,9 +30,6 @@ public class Controller {
 
     @FXML
     private Button btn_show;
-    
-    @FXML
-    private Button btn_import;
 
     @FXML
     private Button import_db;
@@ -52,8 +46,7 @@ public class Controller {
     }
 
     @FXML
-    private void handleLoadFXML(ActionEvent event) throws FileNotFoundException, IOException {
-    	Stage stage = (Stage) bp.getScene().getWindow();
+    private void handleLoadFXML(ActionEvent event) throws IOException {
         Object eventSrc = event.getSource();
         if (eventSrc.equals(mge_accts)) {
             changeScene("manageAccounts.fxml");
@@ -64,25 +57,25 @@ public class Controller {
         else if (eventSrc.equals(btn_show)) {
             changeScene("showAccounts.fxml");
         }
-        else if (eventSrc.equals(btn_import))
-        {
-        	String res = "";
+        else if (eventSrc.equals(import_db)) {
+            String res = "";
             FileChooser fileChooser = new FileChooser();
             try
             {
-            	File file2 = fileChooser.showOpenDialog(stage);// needs to be try-catch for null pointer exception
-            	Scanner sc = new Scanner(file2);
-            	while(sc.hasNextLine())
-            		res += sc.nextLine() + "\n";
-            	sc.close();
+                Stage stage = (Stage) bp.getScene().getWindow();
+                File file2 = fileChooser.showOpenDialog(stage);// needs to be try-catch for null pointer exception
+                Scanner sc = new Scanner(file2);
+                while(sc.hasNextLine())
+                    res += sc.nextLine() + "\n";
+                sc.close();
             }
-            catch(NullPointerException e)
+            catch(NullPointerException | FileNotFoundException e)
             {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
             File file = new File("./src/sample/txt", "database.txt");
             if (!file.exists( ))
-            	file.createNewFile();
+                file.createNewFile();
             FileWriter writer = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(res);
