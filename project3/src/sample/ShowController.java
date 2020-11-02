@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * controls showAccounts.fxml
+ @author Shyam Patel, Drew Taylor
+ */
 public class ShowController {
 
     @FXML

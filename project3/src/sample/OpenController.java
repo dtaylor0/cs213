@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * controls openAccount.fxml
+ @author Shyam Patel, Drew Taylor
+ */
 public class OpenController {
 
     @FXML

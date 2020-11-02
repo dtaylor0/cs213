@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * controls home.fxml
+ @author Shyam Patel, Drew Taylor
+ */
 public class Controller {
 
     @FXML

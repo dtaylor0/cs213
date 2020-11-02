@@ -3,7 +3,7 @@ C,Dr,,-220.04,5/4/1444,false
 S,Drew,Taylor,802.07,5/5/1555,true
 C,Jay,Jones,666.27,6/6/1666,true
 C,Jane,Doe,275.15,2/29/2008,false
-S,John,Doe,501.35,1/1/2010,true
+M,John,Juan,300.00,3/3/2003,3
 M,Mary,Johnson,350.78,7/10/2014,0
 C,Richard,Scanlan,1500.54,7/31/2014,false
 S,Mary,Johnson,2006.10,7/31/2014,true
@@ -14,4 +14,4 @@ S,Jane,Doe,500.90,11/1/2019,false
 M,Forever,Young,2840.55,2/21/2020,7
 C,Jerry,Anderson,776.74,9/23/2020,false
 S,Tom,Moore,1003.29,9/23/2020,false
-C,Drew,Taylor,-221.04,15/5/5555,false
+C,Drew,Taylor,-216.04,15/5/5555,false

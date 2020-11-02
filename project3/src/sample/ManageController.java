@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * controls manageAccounts.fxml
+ @author Shyam Patel, Drew Taylor
+ */
 public class ManageController {
 
     @FXML

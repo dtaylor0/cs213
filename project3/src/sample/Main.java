@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * runs the application
+ @author Shyam Patel, Drew Taylor
+ */
 public class Main extends Application {
 
     @Override

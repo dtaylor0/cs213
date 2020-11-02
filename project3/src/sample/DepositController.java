@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * controls deposit.fxml
+ @author Shyam Patel, Drew Taylor
+ */
 public class DepositController {
 
     @FXML
