@@ -12,3 +12,6 @@ C,Jerry,Anderson,1001.40,9/23/2020,false
 S,Tom,Moore,1001.40,9/23/2020,false
 S,Drew,Taylor,800.00,5/5/1555,true
 C,Drew,Taylor,4.00,15/5/5555,false
+C,Dr,,5.00,5/4/1444,false
+C,Jay,Jones,666.00,6/6/1666,true
+C,Matt,Mattis,444.00,4/4/1444,false

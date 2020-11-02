@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -94,18 +93,46 @@ public class OpenController {
         //lname
         String lastName = lname.getText();
 
+        if (firstName.equals("") || lastName.equals("")) {
+            output.appendText("Must enter a first and last name.\n");
+            return;
+        }
+
         Profile holder = new Profile(firstName, lastName);
 
         //bal
-        double balance = Double.parseDouble(bal.getText());
+        double balance;
+        try {
+            balance = Double.parseDouble(bal.getText());
+        }
+        catch (Exception e) {
+            output.appendText("Bad input for starting balance.\n");
+            return;
+        }
+        if (balance < 0) {
+            output.appendText("Cannot have negative starting balance.\n");
+            return;
+        }
 
         //date
         String dateStr = date.getText();
-        String[] dateArr = dateStr.split("/");
-        int month = Integer.parseInt(dateArr[0]);
-        int day = Integer.parseInt(dateArr[1]);
-        int year = Integer.parseInt(dateArr[2]);
+        int month = 0;
+        int day = 0;
+        int year = 0;
+        try {
+            String[] dateArr = dateStr.split("/");
+            month = Integer.parseInt(dateArr[0]);
+            day = Integer.parseInt(dateArr[1]);
+            year = Integer.parseInt(dateArr[2]);
+        }
+        catch (Exception e) {
+
+        }
         Date dateObj = new Date(month, day, year);
+        if(!dateObj.isValid()) {
+            output.appendText("Invalid date.\n");
+            return;
+        }
 
         AccountDatabase db = loadDB();
 
@@ -142,54 +169,77 @@ public class OpenController {
         writeDB(db);
     }
 
-    private static AccountDatabase loadDB() throws FileNotFoundException {
+    private AccountDatabase loadDB() throws FileNotFoundException {
         AccountDatabase db = new AccountDatabase();
-        File f = new File(Path.path);
-        Scanner sc = new Scanner(f);
-        sc.useDelimiter("\\Z");
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] values = line.split(",");
-            String accType = values[0];
-            String fname = values[1];
-            String lname = values[2];
-            double balance = Double.parseDouble(values[3]);
-            String date = values[4];
-            String[] dateArr = date.split("/");
-            int month = Integer.parseInt(dateArr[0]);
-            int day = Integer.parseInt(dateArr[1]);
-            int year = Integer.parseInt(dateArr[2]);
-            int withdrawals;
-            boolean bool;
-            switch (accType) {
-                case "M": {
-                    withdrawals = Integer.parseInt(values[5]);
-                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                    db.add(acct);
-                    break;
+        try
+        {
+            File f = new File(Path.path);
+            try
+            {
+                Scanner sc = new Scanner(f);
+                try
+                {
+                    sc.useDelimiter("\\Z");
+                    while (sc.hasNextLine())
+                    {
+                        String line = sc.nextLine();
+                        String[] values = line.split(",");
+                        String accType = values[0];
+                        String fname = values[1];
+                        String lname = values[2];
+                        double balance = Double.parseDouble(values[3]);
+                        String date = values[4];
+                        String[] dateArr = date.split("/");
+                        int month = Integer.parseInt(dateArr[0]);
+                        int day = Integer.parseInt(dateArr[1]);
+                        int year = Integer.parseInt(dateArr[2]);
+                        int withdrawals;
+                        boolean bool;
+                        switch (accType)
+                        {
+                            case "M": {
+                                withdrawals = Integer.parseInt(values[5]);
+                                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                                db.add(acct);
+                                break;
+                            }
+                            case "S": {
+                                bool = Boolean.parseBoolean(values[5]);
+                                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                                db.add(acct);
+                                break;
+                            }
+                            case "C": {
+                                bool = Boolean.parseBoolean(values[5]);
+                                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                                db.add(acct);
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
+                    }
                 }
-                case "S": {
-                    bool = Boolean.parseBoolean(values[5]);
-                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                    db.add(acct);
-                    break;
+                catch(ArrayIndexOutOfBoundsException | IllegalArgumentException e)
+                {
+                    output.appendText("The database is not in the correct format\n");
                 }
-                case "C": {
-                    bool = Boolean.parseBoolean(values[5]);
-                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                    db.add(acct);
-                    break;
-                }
-                default: {
-                    break;
-                }
+                sc.close();
+            }
+            catch(NullPointerException e)
+            {
+                output.appendText("Can't scan a file that is null.\n");
             }
         }
-        sc.close();
+        catch(IOException e)
+        {
+            output.appendText("File could not be found.\n");
+        }
         return db;
     }
 
-    private static void writeDB(AccountDatabase db) throws IOException {
+    private void writeDB(AccountDatabase db) throws IOException {
         FileWriter writer = new FileWriter(Path.path);
         String dbStr = db.convertToTxt();
         writer.write(dbStr);
@@ -215,9 +265,4 @@ public class OpenController {
         stage.setScene(scene);
     }
 
-    public static void main(String[] args) throws IOException {
-        AccountDatabase myDB = loadDB();
-        myDB.printByLastName();
-        writeDB(myDB);
-    }
 }

@@ -103,50 +103,73 @@ public class WithdrawalController {
 
     }
 
-    private static AccountDatabase loadDB() throws FileNotFoundException {
+    private AccountDatabase loadDB() throws FileNotFoundException {
         AccountDatabase db = new AccountDatabase();
-        File f = new File(Path.path);
-        Scanner sc = new Scanner(f);
-        sc.useDelimiter("\\Z");
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] values = line.split(",");
-            String accType = values[0];
-            String fname = values[1];
-            String lname = values[2];
-            double balance = Double.parseDouble(values[3]);
-            String date = values[4];
-            String[] dateArr = date.split("/");
-            int month = Integer.parseInt(dateArr[0]);
-            int day = Integer.parseInt(dateArr[1]);
-            int year = Integer.parseInt(dateArr[2]);
-            int withdrawals;
-            boolean bool;
-            switch (accType) {
-                case "M": {
-                    withdrawals = Integer.parseInt(values[5]);
-                    MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
-                    db.add(acct);
-                    break;
+        try
+        {
+            File f = new File(Path.path);
+            try
+            {
+                Scanner sc = new Scanner(f);
+                try
+                {
+                    sc.useDelimiter("\\Z");
+                    while (sc.hasNextLine())
+                    {
+                        String line = sc.nextLine();
+                        String[] values = line.split(",");
+                        String accType = values[0];
+                        String fname = values[1];
+                        String lname = values[2];
+                        double balance = Double.parseDouble(values[3]);
+                        String date = values[4];
+                        String[] dateArr = date.split("/");
+                        int month = Integer.parseInt(dateArr[0]);
+                        int day = Integer.parseInt(dateArr[1]);
+                        int year = Integer.parseInt(dateArr[2]);
+                        int withdrawals;
+                        boolean bool;
+                        switch (accType)
+                        {
+                            case "M": {
+                                withdrawals = Integer.parseInt(values[5]);
+                                MoneyMarket acct = new MoneyMarket(new Profile(fname, lname), balance, new Date(month, day, year), withdrawals);
+                                db.add(acct);
+                                break;
+                            }
+                            case "S": {
+                                bool = Boolean.parseBoolean(values[5]);
+                                Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                                db.add(acct);
+                                break;
+                            }
+                            case "C": {
+                                bool = Boolean.parseBoolean(values[5]);
+                                Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
+                                db.add(acct);
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
+                    }
                 }
-                case "S": {
-                    bool = Boolean.parseBoolean(values[5]);
-                    Savings acct = new Savings(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                    db.add(acct);
-                    break;
+                catch(ArrayIndexOutOfBoundsException | IllegalArgumentException e)
+                {
+                    output.appendText("The database is not in the correct format\n");
                 }
-                case "C": {
-                    bool = Boolean.parseBoolean(values[5]);
-                    Checking acct = new Checking(new Profile(fname, lname), balance, new Date(month, day, year), bool);
-                    db.add(acct);
-                    break;
-                }
-                default: {
-                    break;
-                }
+                sc.close();
+            }
+            catch(NullPointerException e)
+            {
+                output.appendText("Can't scan a file that is null.\n");
             }
         }
-        sc.close();
+        catch(IOException e)
+        {
+            output.appendText("File could not be found.\n");
+        }
         return db;
     }
 
