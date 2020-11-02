@@ -11,7 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -41,13 +45,27 @@ public class IEController {
     }
 
     @FXML
-    private void handleLoadFXML(ActionEvent event) throws IOException {
+    private void handleLoadFXML(ActionEvent event) throws IOException
+    {
         Object eventSrc = event.getSource();
-        if (eventSrc.equals(exportBtn)) {
-            output.setText("Database exported to project3/src/sample/txt/database.txt");
+        File file = new File("./src/sample/txt", "database.txt");
+        if (!file.exists( ))
+            file.createNewFile();
+        if (eventSrc.equals(exportBtn))
+        {
+            if (eventSrc.equals(exportBtn))
+            {
+                String filePath = file.getAbsolutePath();
+                for(int i = 0; i < filePath.length() - 1; i++)
+                {
+                    if(filePath.charAt(i) == '\\' && filePath.charAt(i + 1) == '.')
+                        filePath = filePath.substring(0, i) + filePath.substring(i + 2);
+                }
+                output.setText("This is the file path to database.txt: " + filePath);
+            }
         }
-        else if (eventSrc.equals(importBtn)) {
-
+        else if (eventSrc.equals(importBtn))
+        {
             String res = "";
             FileChooser fileChooser = new FileChooser();
             try
@@ -63,7 +81,7 @@ public class IEController {
             {
                 e.printStackTrace();
             }
-            File file = new File("./src/sample/txt", "database.txt");
+            file = new File("./src/sample/txt", "database.txt");
             if (!file.exists())
                 file.createNewFile();
             FileWriter writer = new FileWriter(file.getAbsoluteFile());

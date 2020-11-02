@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -39,14 +36,18 @@ public class OpenController {
     @FXML
     private TextField date;
 
-    @FXML
-    private TextField bool;
-
-    @FXML
-    private Text boolLabel;
 
     @FXML
     private TextArea output;
+
+    @FXML
+    private CheckBox directDeposit;
+
+    @FXML
+    private CheckBox loyalCustomer;
+
+    @FXML
+    private TextField numWithdrawals;
 
     @FXML
     public void initialize() {
@@ -54,9 +55,27 @@ public class OpenController {
             RadioButton radioButton = (RadioButton) accountType.getSelectedToggle();
             String accType = radioButton.getText();
             switch (accType) {
-                case "Checking" -> boolLabel.setText("Direct Deposit (enter true/false)");
-                case "Savings" -> boolLabel.setText("Loyal Customer (enter true/false)");
-                case "Money Market" -> boolLabel.setText("Number of withdrawals");
+                case "Savings": {
+                    loyalCustomer.setDisable(false);
+                    directDeposit.setDisable(true);
+                    numWithdrawals.setDisable(true);
+                    break;
+                }
+                case "Checking": {
+                    loyalCustomer.setDisable(true);
+                    directDeposit.setDisable(false);
+                    numWithdrawals.setDisable(true);
+                    break;
+                }
+                case "Money Market": {
+                    loyalCustomer.setDisable(true);
+                    directDeposit.setDisable(true);
+                    numWithdrawals.setDisable(false);
+                    break;
+                }
+                default: {
+                    break;
+                }
             }
         });
     }
@@ -88,36 +107,23 @@ public class OpenController {
         int year = Integer.parseInt(dateArr[2]);
         Date dateObj = new Date(month, day, year);
 
-        //boolean
-        String boolStr = bool.getText();
-        int withdrawals = 0;
-        boolean boolVal = false;
-        if (accType.equals("Money Market")) {
-            withdrawals = Integer.parseInt(boolStr);
-            System.out.println(withdrawals);
-        }
-        else {
-            boolVal = Boolean.parseBoolean(boolStr);
-            System.out.println(boolVal);
-        }
-
         AccountDatabase db = loadDB();
 
 
         boolean addRes = false;
         switch (accType) {
             case "Savings": {
-                Savings acct = new Savings(holder, balance, dateObj, boolVal);
+                Savings acct = new Savings(holder, balance, dateObj, loyalCustomer.isSelected());
                 addRes = db.add(acct);
                 break;
             }
             case "Checking": {
-                Checking acct = new Checking(holder, balance, dateObj, boolVal);
+                Checking acct = new Checking(holder, balance, dateObj, directDeposit.isSelected());
                 addRes = db.add(acct);
                 break;
             }
             case "Money Market": {
-                MoneyMarket acct = new MoneyMarket(holder, balance, dateObj, withdrawals);
+                MoneyMarket acct = new MoneyMarket(holder, balance, dateObj, Integer.parseInt(numWithdrawals.getText()));
                 addRes = db.add(acct);
                 break;
             }
