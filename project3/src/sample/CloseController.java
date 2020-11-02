@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -36,6 +33,9 @@ public class CloseController {
     private TextField lname;
 
     @FXML
+    private TextArea output;
+
+    @FXML
     private void closeAccount(ActionEvent event) throws IOException {
         RadioButton button = (RadioButton) accountType.getSelectedToggle();
         String accType = button.getText();
@@ -53,17 +53,25 @@ public class CloseController {
 
         AccountDatabase db = loadDB();
 
+        boolean removeRes = false;
         if (accType.equals("Savings")) {
             Savings acct = new Savings(holder, 0, dummyDate, false);
-            db.remove(acct);
+            removeRes = db.remove(acct);
         }
         else if (accType.equals("Checking")) {
             Checking acct = new Checking(holder, 0, dummyDate, false);
-            db.remove(acct);
+            removeRes = db.remove(acct);
         }
         else if (accType.equals("Money Market")) {
             MoneyMarket acct = new MoneyMarket(holder, 0, dummyDate, 0);
-            db.remove(acct);
+            removeRes = db.remove(acct);
+        }
+
+        if (removeRes) {
+            output.setText("Account closed and removed from the database.");
+        }
+        else {
+            output.setText("Account does not exist.");
         }
 
         writeDB(db);

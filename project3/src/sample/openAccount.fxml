@@ -125,7 +125,7 @@
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="699.0" style="-fx-background-color: #14242B;">
          <children>
-            <TextArea fx:id="output" layoutX="7.0" layoutY="21.0" prefHeight="565.0" prefWidth="500.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="21.0" />
+            <TextArea fx:id="output" layoutX="100.0" layoutY="25.0" prefHeight="550.0" prefWidth="500.0" />
          </children>
       </AnchorPane>
    </children>

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +28,8 @@ public class IEController {
     @FXML
     private Button home;
 
+    @FXML
+    private TextArea output;
 
     private Parent loadFXML(String name) {
         try {
@@ -43,7 +46,7 @@ public class IEController {
     private void handleLoadFXML(ActionEvent event) throws IOException {
         Object eventSrc = event.getSource();
         if (eventSrc.equals(exportBtn)) {
-            //some code
+            output.setText("Database exported to project3/src/sample/txt/database.txt");
         }
         else if (eventSrc.equals(importBtn)) {
 
@@ -69,6 +72,7 @@ public class IEController {
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(res);
             bw.close();
+            output.setText("Database successfully imported.");
         }
     }
 

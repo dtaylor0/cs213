@@ -30,13 +30,9 @@
         <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #14242B;" BorderPane.alignment="CENTER">
             <children>
                 <VBox fx:id="child" alignment="CENTER" prefHeight="600.0" prefWidth="750.0">
-                    <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Import/Export Database" textAlignment="CENTER">
-                            <font>
-                                <Font size="36.0" />
-                            </font>
-                        </Text>
-                    </children>
+               <children>
+                  <TextArea fx:id="output" maxWidth="500.0" prefHeight="550.0" prefWidth="500.0" />
+               </children>
                 </VBox>
             </children></AnchorPane>
     </center>
