@@ -159,7 +159,7 @@ public class OpenController {
                 db.add(acct);
             }
         }
-        System.out.println(db.printAccounts());
+        sc.close();
         return db;
     }
 

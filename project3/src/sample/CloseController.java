@@ -105,7 +105,7 @@ public class CloseController {
                 db.add(acct);
             }
         }
-        System.out.println(db.printAccounts());
+        sc.close();
         return db;
     }
 
