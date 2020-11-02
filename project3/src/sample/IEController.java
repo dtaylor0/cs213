@@ -48,7 +48,7 @@ public class IEController {
     private void handleLoadFXML(ActionEvent event) throws IOException
     {
         Object eventSrc = event.getSource();
-        File file = new File("./src/sample/txt", "database.txt");
+        File file = new File(Path.path);
         if (!file.exists( ))
             file.createNewFile();
         if (eventSrc.equals(exportBtn))
@@ -81,7 +81,7 @@ public class IEController {
             {
                 e.printStackTrace();
             }
-            file = new File("./src/sample/txt", "database.txt");
+            file = new File(Path.path);
             if (!file.exists())
                 file.createNewFile();
             FileWriter writer = new FileWriter(file.getAbsoluteFile());

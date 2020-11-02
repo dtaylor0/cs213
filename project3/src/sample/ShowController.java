@@ -92,7 +92,7 @@ public class ShowController {
 
     private static AccountDatabase loadDB() throws FileNotFoundException {
         AccountDatabase db = new AccountDatabase();
-        File f = new File("./src/sample/txt/database.txt");
+        File f = new File(Path.path);
         Scanner sc = new Scanner(f);
         sc.useDelimiter("\\Z");
         while (sc.hasNextLine()) {

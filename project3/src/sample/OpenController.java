@@ -49,6 +49,7 @@ public class OpenController {
     @FXML
     private TextField numWithdrawals;
 
+
     @FXML
     public void initialize() {
         accountType.selectedToggleProperty().addListener((observableValue, toggle, t1) -> {
@@ -143,7 +144,7 @@ public class OpenController {
 
     private static AccountDatabase loadDB() throws FileNotFoundException {
         AccountDatabase db = new AccountDatabase();
-        File f = new File("./src/sample/txt/database.txt");
+        File f = new File(Path.path);
         Scanner sc = new Scanner(f);
         sc.useDelimiter("\\Z");
         while (sc.hasNextLine()) {
@@ -189,7 +190,7 @@ public class OpenController {
     }
 
     private static void writeDB(AccountDatabase db) throws IOException {
-        FileWriter writer = new FileWriter("./src/sample/txt/database.txt");
+        FileWriter writer = new FileWriter(Path.path);
         String dbStr = db.convertToTxt();
         writer.write(dbStr);
         writer.close();
