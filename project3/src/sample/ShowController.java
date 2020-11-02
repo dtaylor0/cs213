@@ -47,7 +47,7 @@ public class ShowController {
         //take data from open account form and add new account to database
         Object eventSrc = event.getSource();
         AccountDatabase db = loadDB();
-        textArea.setText("");
+        textArea.appendText("");
         if(eventSrc.equals(printButton))
         {
             unsorted.setToggleGroup(printOptions);

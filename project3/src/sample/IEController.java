@@ -61,7 +61,7 @@ public class IEController {
                     if(filePath.charAt(i) == '\\' && filePath.charAt(i + 1) == '.')
                         filePath = filePath.substring(0, i) + filePath.substring(i + 2);
                 }
-                output.setText("This is the file path to database.txt: " + filePath);
+                output.appendText("This is the file path to database.txt:\n" + filePath + "\n");
             }
         }
         else if (eventSrc.equals(importBtn))
@@ -88,7 +88,7 @@ public class IEController {
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(res);
             bw.close();
-            output.setText("Database successfully imported.");
+            output.appendText("Database successfully imported.\n");
         }
     }
 

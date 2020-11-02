@@ -83,15 +83,15 @@ public class WithdrawalController {
 
         switch (withdrawalRes) {
             case 0: {
-                output.setText(String.format("%.2f withdrawn from account.", withdrawalAmt));
+                output.appendText(String.format("%.2f withdrawn from account.\n", withdrawalAmt));
                 break;
             }
             case 1: {
-                output.setText("Insufficient funds.");
+                output.appendText("Insufficient funds.\n");
                 break;
             }
             case -1: {
-                output.setText("Account does not exist.");
+                output.appendText("Account does not exist.\n");
                 break;
             }
             default: {

@@ -76,10 +76,10 @@ public class CloseController {
         }
 
         if (removeRes) {
-            output.setText("Account closed and removed from the database.");
+            output.appendText("Account closed and removed from the database.\n");
         }
         else {
-            output.setText("Account does not exist.");
+            output.appendText("Account does not exist.\n");
         }
 
         writeDB(db);

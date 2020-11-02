@@ -133,10 +133,10 @@ public class OpenController {
         }
 
         if (addRes) {
-            output.setText("Account opened and added to the database.");
+            output.appendText("Account opened and added to the database.\n");
         }
         else {
-            output.setText("Account is already in the database.");
+            output.appendText("Account is already in the database.\n");
         }
 
         writeDB(db);

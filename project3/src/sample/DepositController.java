@@ -82,10 +82,10 @@ public class DepositController {
         }
 
         if(depositRes) {
-            output.setText(String.format("%.2f deposited into account.", depositAmt));
+            output.appendText(String.format("%.2f deposited into account.\n", depositAmt));
         }
         else {
-            output.setText("Account does not exist.");
+            output.appendText("Account does not exist.\n");
         }
 
         writeDB(db);
