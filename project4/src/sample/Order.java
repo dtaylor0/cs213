@@ -26,7 +26,24 @@ public class Order implements Customizable
 	{
 		return orderlines.remove((OrderLine)obj);
 	}
-	
+
+	public boolean remove(int i) {
+		Object o = orderlines.remove(i);
+		if (o == null) {
+			return false;
+		}
+		else {
+			for (int index = 0; index < orderlines.size(); index++) {
+				orderlines.get(index).setLineNumber(index + 1);
+			}
+			return true;
+		}
+	}
+
+	public Sandwich getSandwich(int i) {
+		return orderlines.get(i).getSandwich();
+	}
+
 	public String toString()
 	{
 		String order = "";

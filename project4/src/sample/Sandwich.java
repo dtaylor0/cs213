@@ -21,4 +21,5 @@ public abstract class Sandwich implements Customizable
 		return extras.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
 	}
+
 }

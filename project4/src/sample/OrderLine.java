@@ -27,5 +27,8 @@ public class OrderLine
 	{
 		this.lineNumber = lineNumber;
 	}
-	
+
+	public Sandwich getSandwich() {
+		return sandwich;
+	}
 }

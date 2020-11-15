@@ -28,7 +28,7 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="addBtn" layoutX="381.0" layoutY="10.0" mnemonicParsing="false" text="Add Another" textAlignment="CENTER">
+            <Button fx:id="addBtn" layoutX="381.0" layoutY="10.0" mnemonicParsing="false" onAction="#addDupe" text="Add Another" textAlignment="CENTER">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin></Button>

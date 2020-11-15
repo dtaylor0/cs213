@@ -41,8 +41,7 @@ public class DetailsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String lines[] = order.toString().split("\\r?\\n");
-        orders.getItems().addAll(lines);
+        updateOrders();
     }
 
     private Parent loadShop() {
@@ -69,7 +68,21 @@ public class DetailsController implements Initializable {
 
     @FXML
     private void removeItem() {
-        //do stuff
+        order.remove(orders.getSelectionModel().getSelectedIndex());
+        updateOrders();
+    }
 
+    @FXML
+    private void addDupe() {
+        int i = orders.getSelectionModel().getSelectedIndex();
+        Sandwich s = order.getSandwich(i);
+        order.add(new OrderLine(0, s, s.price()));
+        updateOrders();
+    }
+
+    private void updateOrders() {
+        orders.getItems().clear();
+        String lines[] = order.toString().split("\\r?\\n");
+        orders.getItems().addAll(lines);
     }
 }
