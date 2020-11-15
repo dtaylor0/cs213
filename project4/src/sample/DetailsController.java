@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -32,6 +33,9 @@ public class DetailsController implements Initializable {
 
     @FXML
     Button backBtn;
+
+    @FXML
+    TextArea totalPrice;
 
     Order order;
 
@@ -68,15 +72,28 @@ public class DetailsController implements Initializable {
 
     @FXML
     private void removeItem() {
-        order.remove(orders.getSelectionModel().getSelectedIndex());
+        int i = orders.getSelectionModel().getSelectedIndex();
+        if (i < 0) {
+            return;
+        }
+        order.remove(i);
         updateOrders();
     }
 
     @FXML
     private void addDupe() {
         int i = orders.getSelectionModel().getSelectedIndex();
+        if (i < 0) {
+            return;
+        }
         Sandwich s = order.getSandwich(i);
         order.add(new OrderLine(0, s, s.price()));
+        updateOrders();
+    }
+
+    @FXML
+    private void clear() {
+        order = new Order();
         updateOrders();
     }
 
@@ -84,5 +101,11 @@ public class DetailsController implements Initializable {
         orders.getItems().clear();
         String lines[] = order.toString().split("\\r?\\n");
         orders.getItems().addAll(lines);
+        showPrice();
     }
+
+    private void showPrice() {
+        totalPrice.setText(String.format("Total Price: $%.2f", order.totalPrice()));
+    }
+
 }

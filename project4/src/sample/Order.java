@@ -54,6 +54,14 @@ public class Order implements Customizable
 		return order;
 	}
 
+	public double totalPrice() {
+		double total = 0;
+		for (int i = 0; i < orderlines.size(); i++) {
+			total += orderlines.get(i).getSandwich().price();
+		}
+		return total;
+	}
+
 	public static void main(String[] args)
 	{
 		Order order1 = new Order();
