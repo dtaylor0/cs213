@@ -41,10 +41,8 @@ public class DetailsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<OrderLine> ol = order.getOrderlines();
-        for (int i = 0; i < ol.size(); i++) {
-            orders.getItems().add(ol.get(i).toString());
-        }
+        String lines[] = order.toString().split("\\r?\\n");
+        orders.getItems().addAll(lines);
     }
 
     private Parent loadShop() {

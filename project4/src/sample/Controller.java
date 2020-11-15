@@ -168,11 +168,9 @@ public class Controller implements Initializable {
 
     private Parent loadDetails() {
         try {
-            //return FXMLLoader.load(getClass().getResource("details.fxml"));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("details.fxml"));
             loader.setController(new DetailsController(order));
             Parent root = loader.load();
-            System.out.println(root.toString());
             return root;
         }
         catch (IOException e) {

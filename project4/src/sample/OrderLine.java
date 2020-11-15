@@ -15,6 +15,17 @@ public class OrderLine
 	
 	public String toString()
 	{
-		return lineNumber + " " + sandwich.toString() + " " + price + "\n";
+		return lineNumber + " " + sandwich.toString() + ", Price $" + price + "\n";
 	}
+	
+	public int getLineNumber()
+	{
+		return this.lineNumber;
+	}
+	
+	public void setLineNumber(int lineNumber)
+	{
+		this.lineNumber = lineNumber;
+	}
+	
 }
