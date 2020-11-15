@@ -18,10 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
 
@@ -54,7 +51,11 @@ public class Controller implements Initializable {
     List<String> fish_ingredients = Arrays.asList("Grilled Snapper", "Cilantro", "Lime");
     List<String> extras = Arrays.asList("Mayo", "Ketchup", "Lettuce", "Onions", "Cheddar Cheese", "American Cheese", "Salt", "Bacon", "Pepper", "Avocado");
 
+    Order order = new Order();
 
+    public Controller(Order o) {
+        order = o;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,7 +64,7 @@ public class Controller implements Initializable {
         ingredients.getItems().addAll(extras);
         selected.getItems().addAll(chicken_ingredients);
         showPrice();
-        showStatus("Status: Waiting for first order.\n");
+        showStatus("Waiting for first order...\n");
     }
 
     public void setImageView(String path) {
@@ -120,39 +121,59 @@ public class Controller implements Initializable {
     }
 
     public void showPrice() {
+        Sandwich temp = makeSandwich();
+        price.setText(String.format("$%.2f", temp.price()));
+    }
+
+    private Sandwich makeSandwich() {
         ObservableList<String> currIngredients = selected.getItems();
-        double currPrice = 0;
-        double addon = 1.99;
-        double chickenPrice = 8.99;
-        double beefPrice = 10.99;
-        double fishPrice = 12.99;
         int numBaseIngredients = 3;
+        ArrayList<Extra> currStuff = new ArrayList<Extra>();
+        for (int i = numBaseIngredients; i < currIngredients.size(); i++) {
+            currStuff.add(new Extra(currIngredients.get(i)));
+        }
+        Sandwich currSandwich = null;
         switch (sandwich.getSelectionModel().getSelectedItem()) {
             case "Chicken":
-                currPrice = chickenPrice + addon * (currIngredients.size() - numBaseIngredients);
+                currSandwich = new Chicken();
+                for (int i = 0; i < currStuff.size(); i++) {
+                    currSandwich.add(currStuff.get(i));
+                }
                 break;
             case "Beef":
-                currPrice = beefPrice + addon * (currIngredients.size() - numBaseIngredients);
+                currSandwich = new Beef();
+                for (int i = 0; i < currStuff.size(); i++) {
+                    currSandwich.add(currStuff.get(i));
+                }
                 break;
             case "Fish":
-                currPrice = fishPrice + addon * (currIngredients.size() - numBaseIngredients);
+                currSandwich = new Fish();
+                for (int i = 0; i < currStuff.size(); i++) {
+                    currSandwich.add(currStuff.get(i));
+                }
                 break;
             default:
                 break;
         }
-        price.setText(String.format("$%.2f", currPrice));
+        return currSandwich;
     }
 
     public void addOrder() {
-        //make sandwich with selected items
-        //add to order list
+        Sandwich temp = makeSandwich();
+        OrderLine orderLine = new OrderLine(0, temp, temp.price());
+        order.add(orderLine);
         //reset selection
         showStatus("Sandwich added to order.\n");
     }
 
     private Parent loadDetails() {
         try {
-            return FXMLLoader.load(getClass().getResource("details.fxml"));
+            //return FXMLLoader.load(getClass().getResource("details.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("details.fxml"));
+            loader.setController(new DetailsController(order));
+            Parent root = loader.load();
+            System.out.println(root.toString());
+            return root;
         }
         catch (IOException e) {
             e.printStackTrace();

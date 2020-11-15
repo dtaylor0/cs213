@@ -2,6 +2,7 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +11,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class DetailsController {
+public class DetailsController implements Initializable {
 
     @FXML
     BorderPane bp;
@@ -29,9 +33,26 @@ public class DetailsController {
     @FXML
     Button backBtn;
 
+    Order order;
+
+    public DetailsController(Order o) {
+        order = o;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ArrayList<OrderLine> ol = order.getOrderlines();
+        for (int i = 0; i < ol.size(); i++) {
+            orders.getItems().add(ol.get(i).toString());
+        }
+    }
+
     private Parent loadShop() {
         try {
-            return FXMLLoader.load(getClass().getResource("sample.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+            loader.setController(new Controller(order));
+            Parent root = loader.load();
+            return root;
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -51,6 +72,6 @@ public class DetailsController {
     @FXML
     private void removeItem() {
         //do stuff
-    }
 
+    }
 }
