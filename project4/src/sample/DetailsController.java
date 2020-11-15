@@ -1,2 +1,4 @@
-package sample;public class Details {
+package sample;
+
+public class DetailsController {
 }
