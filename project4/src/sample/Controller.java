@@ -181,11 +181,21 @@ public class Controller implements Initializable {
     }
 
 
+//    @FXML
+//    private void goToDetails() {
+//        Stage stage = (Stage) bp.getScene().getWindow();
+//        Scene scene = new Scene(Objects.requireNonNull(loadDetails()), 800, 600);
+//        stage.setScene(scene);
+//    }
+
     @FXML
-    private void goToDetails() {
-        Stage stage = (Stage) bp.getScene().getWindow();
+    private void goToDetails() { //edited
+        Stage secondaryStage = new Stage();
         Scene scene = new Scene(Objects.requireNonNull(loadDetails()), 800, 600);
-        stage.setScene(scene);
+        secondaryStage.setScene(scene);
+        secondaryStage.setTitle("Order Details");
+        secondaryStage.setScene(new Scene(Objects.requireNonNull(loadDetails()), 800, 600));
+        secondaryStage.show();
     }
 
     public void showStatus(String msg) {

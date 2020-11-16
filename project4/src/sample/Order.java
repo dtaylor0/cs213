@@ -27,7 +27,7 @@ public class Order implements Customizable
 		return orderlines.remove((OrderLine)obj);
 	}
 
-	public boolean remove(int i) {
+	public boolean removeAt(int i) {
 		Object o = orderlines.remove(i);
 		if (o == null) {
 			return false;
@@ -40,8 +40,21 @@ public class Order implements Customizable
 		}
 	}
 
-	public Sandwich getSandwich(int i) {
-		return orderlines.get(i).getSandwich();
+//	public Sandwich getSandwich(int i) {
+//		return orderlines.get(i).getSandwich();
+//	}
+
+	public Sandwich getSandwich(int i)
+	{
+		try
+		{
+			return orderlines.get(i).getSandwich();
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+
+		}
+		return null;
 	}
 
 	public String toString()

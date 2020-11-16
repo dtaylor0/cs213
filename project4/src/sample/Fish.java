@@ -33,7 +33,7 @@ public class Fish extends Sandwich
 	
 	public double price()
 	{
-		return 12.99 + (extras.size() - 3) * 1.99;
+		return 12.99 + (extras.size() - 3) * PER_EXTRA;
 	}
 	
 	public String toString() 
