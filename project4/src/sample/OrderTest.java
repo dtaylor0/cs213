@@ -65,7 +65,9 @@ class OrderTest
 		order.add(order2);
 		order.add(order3);
 
+		//remove OrderLine that is in Order
 		assertEquals(order.remove(order3), true);
+		//remove OrderLine that is not in Order
 		assertEquals(order.remove(order4), false);
     }	
 
@@ -93,8 +95,11 @@ class OrderTest
 		order.add(order3);
 		order.add(order4);
 
+		//remove at index past length of Order
 		assertEquals(order.removeAt(4), false);
+		//remove at valid index
 		assertEquals(order.removeAt(3), true);
+		//remove at negative index
 		assertEquals(order.removeAt(-1), false);
 	}
 
