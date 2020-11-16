@@ -45,13 +45,57 @@ class OrderTest
 	@Test
     void testRemove() 
     {
-		
+		Order order = new Order();
+
+		Chicken chicken = new Chicken();
+		OrderLine order1 = new OrderLine(0, chicken, chicken.price());
+
+		Beef beef = new Beef();
+		OrderLine order2 = new OrderLine(0, beef, beef.price());
+
+		Chicken chicken1 = new Chicken();
+		chicken1.add(new Extra("Jalapenos"));
+		OrderLine order3 = new OrderLine(0, chicken1, chicken1.price());
+
+		Fish fish = new Fish();
+		fish.add(new Extra("Onion"));
+		OrderLine order4 = new OrderLine(0, fish, fish.price());
+
+		order.add(order1);
+		order.add(order2);
+		order.add(order3);
+
+		assertEquals(order.remove(order3), true);
+		assertEquals(order.remove(order4), false);
     }	
 
     @Test
 	void testRemoveAt()
 	{
+		Order order = new Order();
 
+		Chicken chicken = new Chicken();
+		OrderLine order1 = new OrderLine(0, chicken, chicken.price());
+
+		Beef beef = new Beef();
+		OrderLine order2 = new OrderLine(0, beef, beef.price());
+
+		Chicken chicken1 = new Chicken();
+		chicken1.add(new Extra("Jalapenos"));
+		OrderLine order3 = new OrderLine(0, chicken1, chicken1.price());
+
+		Fish fish = new Fish();
+		fish.add(new Extra("Onion"));
+		OrderLine order4 = new OrderLine(0, fish, fish.price());
+
+		order.add(order1);
+		order.add(order2);
+		order.add(order3);
+		order.add(order4);
+
+		assertEquals(order.removeAt(4), false);
+		assertEquals(order.removeAt(3), true);
+		assertEquals(order.removeAt(-1), false);
 	}
 
 	@Test

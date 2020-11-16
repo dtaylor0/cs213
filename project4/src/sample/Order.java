@@ -28,6 +28,9 @@ public class Order implements Customizable
 	}
 
 	public boolean removeAt(int i) {
+		if (i < 0 || i >= orderlines.size()) {
+			return false;
+		}
 		Object o = orderlines.remove(i);
 		if (o == null) {
 			return false;

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +11,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +34,9 @@ public class DetailsController implements Initializable {
 
     @FXML
     Button backBtn;
+
+    @FXML
+    Button fileBtn;
 
     @FXML
     TextArea totalPrice;
@@ -59,13 +66,6 @@ public class DetailsController implements Initializable {
         return null;
     }
 
-
-//    @FXML
-//    private void goToShop() {
-//        Stage stage = (Stage) bp.getScene().getWindow();
-//        Scene scene = new Scene(Objects.requireNonNull(loadShop()), 800, 600);
-//        stage.setScene(scene);
-//    }
 
     @FXML
     private void goToShop() //edited
@@ -109,7 +109,41 @@ public class DetailsController implements Initializable {
     }
 
     private void showPrice() {
-        totalPrice.setText(String.format("Total Price: $%.2f", order.totalPrice()));
+        totalPrice.setText(String.format("Total Price: $%.2f\n", order.totalPrice()));
+    }
+
+    @FXML
+    private void exportOrder(ActionEvent event) throws IOException
+    {
+        Object eventSrc = event.getSource();
+        File file = new File("./src/sample/OrderDetails.txt");
+        if (!file.exists( ))
+            try
+            {
+                file.createNewFile();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        if (eventSrc.equals(fileBtn))
+        {
+            //method to write order details to file
+            String res = order.toString();
+            FileWriter writer = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(writer);
+            bw.write(res);
+            bw.close();
+        }
+        updateOrders();
+        String filePath = file.getAbsolutePath();
+        for(int i = 0; i < filePath.length() - 1; i++)
+        {
+            if(filePath.charAt(i) == '\\' && filePath.charAt(i + 1) == '.')
+                filePath = filePath.substring(0, i) + filePath.substring(i + 2);
+        }
+        totalPrice.appendText("Orders exported to:\n" + filePath);
+
     }
 
 }
