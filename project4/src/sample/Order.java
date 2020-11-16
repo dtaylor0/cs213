@@ -43,9 +43,6 @@ public class Order implements Customizable
 		}
 	}
 
-//	public Sandwich getSandwich(int i) {
-//		return orderlines.get(i).getSandwich();
-//	}
 
 	public Sandwich getSandwich(int i)
 	{

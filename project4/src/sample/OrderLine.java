@@ -15,7 +15,7 @@ public class OrderLine
 	
 	public String toString()
 	{
-		return lineNumber + " " + sandwich.toString() + ", Price $" + price + "\n";
+		return lineNumber + " " + sandwich.toString() + String.format(", Price $%.2f", price) + "\n";
 	}
 	
 	public int getLineNumber()

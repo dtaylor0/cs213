@@ -24,7 +24,7 @@ public class DetailsController implements Initializable {
     BorderPane bp;
 
     @FXML
-    ListView orders;
+    ListView<String> orders;
 
     @FXML
     Button removeBtn;
@@ -52,19 +52,6 @@ public class DetailsController implements Initializable {
         updateOrders();
     }
 
-    private Parent loadShop() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-            loader.setController(new Controller(order));
-            Parent root = loader.load();
-            return root;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
 
     @FXML

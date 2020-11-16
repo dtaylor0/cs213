@@ -181,12 +181,6 @@ public class Controller implements Initializable {
     }
 
 
-//    @FXML
-//    private void goToDetails() {
-//        Stage stage = (Stage) bp.getScene().getWindow();
-//        Scene scene = new Scene(Objects.requireNonNull(loadDetails()), 800, 600);
-//        stage.setScene(scene);
-//    }
 
     @FXML
     private void goToDetails() { //edited

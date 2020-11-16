@@ -20,7 +20,7 @@
          </BorderPane.margin>
          <children>
             <ListView fx:id="orders" prefHeight="200.0" prefWidth="200.0" />
-            <TextArea fx:id="totalPrice" maxHeight="100.0" maxWidth="400.0" prefHeight="200.0" prefWidth="200.0">
+            <TextArea fx:id="totalPrice" editable="false" maxHeight="100.0" maxWidth="400.0" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
