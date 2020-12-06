@@ -12,12 +12,18 @@ public class BrowserActivity extends AppCompatActivity {
 
     WebView webView;
     String url;
+    String title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
-        url = getIntent().getStringExtra("url");
+        Intent intent = getIntent();
+
+        title = intent.getStringExtra("title");
+        setTitle(title);
+
+        url = intent.getStringExtra("url");
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);

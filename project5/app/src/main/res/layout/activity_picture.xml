@@ -4,14 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="showBrowser"
     tools:context=".PictureActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dip"
+        android:layout_height="300dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/photo"
+        android:clickable="true"
+        android:focusable="true"
         android:onClick="showBrowser"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageView"/>
+
+    <TextView
+        android:id="@+id/adults"
+        android:text="@string/adults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textView"/>
+
+    <Spinner
+        android:id="@+id/adults_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_toRightOf="@id/adults"
+        android:entries="@array/num_tickets"
+        android:layout_toEndOf="@id/adults" />
+
+    <TextView
+        android:id="@+id/seniors"
+        android:text="@string/seniors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/adults"/>
+
+    <Spinner
+        android:id="@+id/seniors_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/adults"
+        android:layout_toRightOf="@id/seniors"
+        android:entries="@array/num_tickets"
+        android:layout_toEndOf="@id/seniors" />
+
+    <TextView
+        android:id="@+id/students"
+        android:text="@string/students"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/seniors"/>
+
+    <Spinner
+        android:id="@+id/students_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seniors"
+        android:layout_toRightOf="@id/students"
+        android:entries="@array/num_tickets"
+        android:layout_toEndOf="@id/students" />
+
+
 </RelativeLayout>

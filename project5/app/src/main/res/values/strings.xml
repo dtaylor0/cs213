@@ -8,6 +8,8 @@
         <item>Brooklyn Museum</item>
     </string-array>
 
+    <string name="ticket_limit">Maximum of 5 tickets for each!</string>
+
     <string name="MoMA">Museum of Modern Art</string>
     <string name="MMoA">Metropolitan Museum of Art</string>
     <string name="AMoNH">American Museum of Natural History</string>
@@ -19,4 +21,30 @@
     <string name="url_mmoa">https://www.metmuseum.org/visit/plan-your-visit</string>
     <string name="url_amonh">https://www.amnh.org/plan-your-visit</string>
     <string name="url_bm">https://www.brooklynmuseum.org/visit/hours_admission/museum_hours</string>
+
+    <string name="adults">Adult Tickets: </string>
+    <string name="seniors">Senior Tickets: </string>
+    <string name="students">Student Tickets: </string>
+
+    <string-array name="num_tickets">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string name="prices_moma">Adults: $25
+    Seniors: $18
+    Students: $14</string>
+    <string name="prices_mmoa">Adults: $25
+    Seniors: $17
+    Students: $12</string>
+    <string name="prices_amonh">Adults: $23
+    Seniors: $18
+    Students: $18</string>
+    <string name="prices_bm">Adults: $16
+    Seniors: $10
+    Students: $10</string>
 </resources>
