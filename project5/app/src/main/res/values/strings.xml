@@ -14,4 +14,9 @@
     <string name="BM">Brooklyn Museum</string>
 
     <string name="photo">Photo of Museum</string>
+
+    <string name="url_moma">https://www.moma.org/visit/</string>
+    <string name="url_mmoa">https://www.metmuseum.org/visit/plan-your-visit</string>
+    <string name="url_amonh">https://www.amnh.org/plan-your-visit</string>
+    <string name="url_bm">https://www.brooklynmuseum.org/visit/hours_admission/museum_hours</string>
 </resources>
