@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MuseumApp</string>
+    <string name="main_title">Choose a Museum:</string>
+    <string-array name="museums">
+        <item>Museum of Modern Art</item>
+        <item>American Museum of Natural History</item>
+        <item>Metropolitan Museum of Art</item>
+        <item>Brooklyn Museum</item>
+    </string-array>
+
+    <string name="MoMA">Museum of Modern Art</string>
+    <string name="MMoA">Metropolitan Museum of Art</string>
+    <string name="AMoNH">American Museum of Natural History</string>
+    <string name="BM">Brooklyn Museum</string>
+
+    <string name="photo">Photo of Museum</string>
+</resources>
