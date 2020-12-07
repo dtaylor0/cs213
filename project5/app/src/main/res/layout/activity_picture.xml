@@ -23,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageView"/>
+        android:layout_below="@id/imageView"
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/adults"
@@ -31,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/textView"/>
+        android:layout_below="@id/textView"
+        android:textSize="18dp"/>
 
     <Spinner
         android:id="@+id/adults_spinner"
@@ -48,7 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/adults"/>
+        android:layout_below="@id/adults"
+        android:textSize="18dp"/>
 
     <Spinner
         android:id="@+id/seniors_spinner"
@@ -65,7 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/seniors"/>
+        android:layout_below="@id/seniors"
+        android:textSize="18dp"/>
 
     <Spinner
         android:id="@+id/students_spinner"
@@ -76,5 +80,13 @@
         android:entries="@array/num_tickets"
         android:layout_toEndOf="@id/students" />
 
+    <TextView
+        android:id="@+id/total"
+        android:text="@string/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/students"
+        android:textSize="18dp"/>
 
 </RelativeLayout>

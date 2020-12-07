@@ -25,6 +25,7 @@
     <string name="adults">Adult Tickets: </string>
     <string name="seniors">Senior Tickets: </string>
     <string name="students">Student Tickets: </string>
+    <string name="total">Total Price: </string>
 
     <string-array name="num_tickets">
         <item>0</item>
@@ -34,6 +35,12 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+
 
     <string name="prices_moma">Adults: $25
     Seniors: $18
