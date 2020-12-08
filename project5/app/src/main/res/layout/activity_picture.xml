@@ -81,12 +81,30 @@
         android:layout_toEndOf="@id/students" />
 
     <TextView
-        android:id="@+id/total"
+        android:id="@+id/price"
         android:text="@string/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/students"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/tax"
+        android:text="@string/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/price"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:text="@string/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tax"
         android:textSize="18dp"/>
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -13,10 +14,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class PictureActivity extends AppCompatActivity {
 
     ImageView imageView;
     TextView textView;
+    TextView price;
+    TextView tax;
     TextView total;
     Spinner adults;
     Spinner seniors;
@@ -35,6 +40,9 @@ public class PictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Resources res = getResources();
 
@@ -55,6 +63,8 @@ public class PictureActivity extends AppCompatActivity {
         seniors.setOnItemSelectedListener(new MyOnItemSelectedListener());
         students.setOnItemSelectedListener(new MyOnItemSelectedListener());
 
+        price = findViewById(R.id.price);
+        tax = findViewById(R.id.tax);
         total = findViewById(R.id.total);
         showPrice();
         String moma = res.getString(R.string.MoMA);
@@ -94,6 +104,7 @@ public class PictureActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("DefaultLocale")
     public void showPrice() {
         double[] prices = null;
         Resources res = getResources();
@@ -106,14 +117,16 @@ public class PictureActivity extends AppCompatActivity {
         else if (museum.equals(res.getString(R.string.BM)))
             prices = bmPrices;
 
-        if (prices == null) {
-        }
-        else {
-            double[] amounts = {Double.parseDouble((String)adults.getSelectedItem()), Double.parseDouble((String)seniors.getSelectedItem()), Double.parseDouble((String)students.getSelectedItem())};
+        if (!(prices == null)) {
+            double[] amounts = {Double.parseDouble((String)adults.getSelectedItem()),
+                    Double.parseDouble((String)seniors.getSelectedItem()),
+                    Double.parseDouble((String)students.getSelectedItem())};
             double dot = 0;
             for (int i = 0; i < prices.length; i++) {
                 dot += prices[i] * amounts[i];
             }
+            price.setText(String.format("Base Price: $%d", (int)dot));
+            tax.setText(String.format("Tax: $%.2f", dot * taxNYC));
             dot = dot + dot * taxNYC;
             @SuppressLint("DefaultLocale") String strTotal = String.format("Total: $%.2f", dot);
             total.setText(strTotal);
@@ -130,5 +143,13 @@ public class PictureActivity extends AppCompatActivity {
         public void onNothingSelected(AdapterView parent) {
             // Do nothing.
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
