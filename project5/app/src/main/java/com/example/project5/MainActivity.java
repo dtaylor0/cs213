@@ -8,11 +8,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ Controls activity_main.xml
+ @author Shyam Patel, Drew Taylor
+ */
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     String main_title;
 
+    /**
+     * Overrides onCreate in AppCompatActivity, adds functionality to ListView of museums.
+     * @param savedInstanceState saved data from previous use of this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

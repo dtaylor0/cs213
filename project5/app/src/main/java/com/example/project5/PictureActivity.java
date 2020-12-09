@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
+/**
+ Controls activity_picture.xml
+ @author Shyam Patel, Drew Taylor
+ */
 public class PictureActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -36,6 +40,10 @@ public class PictureActivity extends AppCompatActivity {
 
     String museum;
 
+    /**
+     * Overrides onCreate in AppCompatActivity, sets the picture, website link, and prices for the picture activity.
+     * @param savedInstanceState saved data from previous use of this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +105,10 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the browser activity and sends the museum name for the title of that activity.
+     * @param view The view that was clicked on to open the BrowserActivity, in this case it is always the ImageView.
+     */
     public void showBrowser(View view) {
         Intent intent = new Intent(getApplicationContext(), BrowserActivity.class);
         intent.putExtra("url", url);
@@ -104,6 +116,9 @@ public class PictureActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Gets current selected ticket amounts and calculates base price, tax, and total price to display.
+     */
     @SuppressLint("DefaultLocale")
     public void showPrice() {
         double[] prices = null;
@@ -133,18 +148,37 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Custom OnItemSelectedListener to allow for real time updates to price displays.
+     */
     public class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
+        /**
+         * Updates price displays every time a new ticket quantity is selected.
+         * @param parent The AdapterView where the selection happened
+         * @param view The view within the AdapterView that was clicked
+         * @param pos The position of the view in the adapter
+         * @param id The row id of the item that is selected
+         */
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
             showPrice();
         }
 
+        /**
+         * Stops anything from happening when no quantity is selected.
+         * @param parent The AdapterView where no selection happened.
+         */
         public void onNothingSelected(AdapterView parent) {
             // Do nothing.
         }
     }
 
+    /**
+     * Makes the top left back arrow functional.
+     * @param item The menu item that was selected.
+     * @return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
